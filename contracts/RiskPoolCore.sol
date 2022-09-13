@@ -27,7 +27,7 @@ contract RiskPoolCore is Initializable {
 
   mapping(string => uint256) public assetIds;
   mapping(uint256 => CoreLibrary.Policy) private _policies;
-  mapping(uint256 => uint256) private _expiredPolicyFunds;
+  mapping(uint256 => uint256) public expiredPolicyFunds;
 
   constructor() {
     _disableInitializers();
@@ -81,7 +81,7 @@ contract RiskPoolCore is Initializable {
     });
 
     uint256 unlocksAt = calculateUnlockTimestamp(endTime, 1);
-    _expiredPolicyFunds[unlocksAt] += payOutAmount;
+    expiredPolicyFunds[unlocksAt] += payOutAmount;
   }
 
   function updateStateOnApplyCover(uint256 policyId) external onlyRiskPool {
@@ -91,7 +91,7 @@ contract RiskPoolCore is Initializable {
     uint256 unlocksAt = calculateUnlockTimestamp(policy.endTime, 1);
     unchecked {
       lockedAssets -= policy.payOutAmount;
-      _expiredPolicyFunds[unlocksAt] -= policy.payOutAmount;
+      expiredPolicyFunds[unlocksAt] -= policy.payOutAmount;
     }
   }
 
@@ -103,12 +103,12 @@ contract RiskPoolCore is Initializable {
     unlocksAt = calculateUnlockTimestamp(timestamp, 0);
     if (unlocksAt > block.timestamp) revert RiskPoolCore__UnlockBeforeExpiry();
 
-    unlockAmount = _expiredPolicyFunds[unlocksAt];
+    unlockAmount = expiredPolicyFunds[unlocksAt];
     unchecked {
       lockedAssets -= unlockAmount;
     }
 
-    _expiredPolicyFunds[unlocksAt] = 0;
+    expiredPolicyFunds[unlocksAt] = 0;
   }
 
   function calculateUnlockTimestamp(uint256 expiry, uint256 grace) internal pure returns (uint256) {
