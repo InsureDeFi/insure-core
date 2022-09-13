@@ -39,6 +39,13 @@ contract RiskPoolCore is Initializable {
     isActive = true;
   }
 
+  modifier onlyOwner() {
+    if (msg.sender != addressesProvider.owner()) {
+      revert RiskPoolCore__NotOwner();
+    }
+    _;
+  }
+
   modifier onlyRiskPool() {
     if (msg.sender != addressesProvider.getRiskPool()) {
       revert RiskPoolCore__NotRiskPool();
@@ -101,6 +108,14 @@ contract RiskPoolCore is Initializable {
     expiredPolicyFunds[unlocksAt] = 0;
   }
 
+  function setPoolActive(bool active) external onlyOwner {
+    isActive = active;
+  }
+
+  function setPoolFreeze(bool freeze) external onlyOwner {
+    isFreezed = freeze;
+  }
+
   function calculateUnlockTimestamp(uint256 expiry, uint256 grace) internal pure returns (uint256) {
     uint256 unlockTimestamp;
     {
@@ -117,8 +132,7 @@ contract RiskPoolCore is Initializable {
     return _assetsList;
   }
 
-  function initAsset(string calldata assetSymbol) external {
-    if (msg.sender != addressesProvider.owner()) revert RiskPoolCore__NotOwner();
+  function initAsset(string calldata assetSymbol) external onlyOwner {
     if (assetIds[assetSymbol] != 0) revert RiskPoolCore__AssetAlreadyInitialized();
 
     _assetsList.push(assetSymbol);
