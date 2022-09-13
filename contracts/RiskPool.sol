@@ -19,7 +19,6 @@ import {IRiskPool} from "./interfaces/IRiskPool.sol";
 ///   # Withdraw
 ///   # Buy insurance
 ///   # Redeem policy
-/// @dev All admin functions are callable by the PoolManager
 contract RiskPool is Initializable, ERC4626Upgradeable, ReentrancyGuardUpgradeable, IRiskPool {
   AddressesProvider public addressesProvider;
   ParametersProvider public parametersProvider;

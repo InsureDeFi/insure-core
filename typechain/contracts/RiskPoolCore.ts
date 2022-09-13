@@ -13,11 +13,7 @@ import type {
   Signer,
   utils,
 } from "ethers";
-import type {
-  FunctionFragment,
-  Result,
-  EventFragment,
-} from "@ethersproject/abi";
+import type { FunctionFragment, Result, EventFragment } from "@ethersproject/abi";
 import type { Listener, Provider } from "@ethersproject/providers";
 import type {
   TypedEventFilter,
@@ -101,45 +97,21 @@ export interface RiskPoolCoreInterface extends utils.Interface {
       | "updateStateOnUnlock"
   ): FunctionFragment;
 
-  encodeFunctionData(
-    functionFragment: "CORE_REVISION",
-    values?: undefined
-  ): string;
-  encodeFunctionData(
-    functionFragment: "addressesProvider",
-    values?: undefined
-  ): string;
-  encodeFunctionData(
-    functionFragment: "assetIds",
-    values: [PromiseOrValue<string>]
-  ): string;
+  encodeFunctionData(functionFragment: "CORE_REVISION", values?: undefined): string;
+  encodeFunctionData(functionFragment: "addressesProvider", values?: undefined): string;
+  encodeFunctionData(functionFragment: "assetIds", values: [PromiseOrValue<string>]): string;
   encodeFunctionData(
     functionFragment: "expiredPolicyFunds",
     values: [PromiseOrValue<BigNumberish>]
   ): string;
   encodeFunctionData(functionFragment: "getAssets", values?: undefined): string;
-  encodeFunctionData(
-    functionFragment: "getPolicy",
-    values: [PromiseOrValue<BigNumberish>]
-  ): string;
-  encodeFunctionData(
-    functionFragment: "initAsset",
-    values: [PromiseOrValue<string>]
-  ): string;
-  encodeFunctionData(
-    functionFragment: "initialize",
-    values: [PromiseOrValue<string>]
-  ): string;
+  encodeFunctionData(functionFragment: "getPolicy", values: [PromiseOrValue<BigNumberish>]): string;
+  encodeFunctionData(functionFragment: "initAsset", values: [PromiseOrValue<string>]): string;
+  encodeFunctionData(functionFragment: "initialize", values: [PromiseOrValue<string>]): string;
   encodeFunctionData(functionFragment: "isActive", values?: undefined): string;
   encodeFunctionData(functionFragment: "isFreezed", values?: undefined): string;
-  encodeFunctionData(
-    functionFragment: "lockedAssets",
-    values?: undefined
-  ): string;
-  encodeFunctionData(
-    functionFragment: "policyCount",
-    values?: undefined
-  ): string;
+  encodeFunctionData(functionFragment: "lockedAssets", values?: undefined): string;
+  encodeFunctionData(functionFragment: "policyCount", values?: undefined): string;
   encodeFunctionData(
     functionFragment: "updateStateOnApplyCover",
     values: [PromiseOrValue<BigNumberish>]
@@ -161,45 +133,21 @@ export interface RiskPoolCoreInterface extends utils.Interface {
     values: [PromiseOrValue<BigNumberish>]
   ): string;
 
-  decodeFunctionResult(
-    functionFragment: "CORE_REVISION",
-    data: BytesLike
-  ): Result;
-  decodeFunctionResult(
-    functionFragment: "addressesProvider",
-    data: BytesLike
-  ): Result;
+  decodeFunctionResult(functionFragment: "CORE_REVISION", data: BytesLike): Result;
+  decodeFunctionResult(functionFragment: "addressesProvider", data: BytesLike): Result;
   decodeFunctionResult(functionFragment: "assetIds", data: BytesLike): Result;
-  decodeFunctionResult(
-    functionFragment: "expiredPolicyFunds",
-    data: BytesLike
-  ): Result;
+  decodeFunctionResult(functionFragment: "expiredPolicyFunds", data: BytesLike): Result;
   decodeFunctionResult(functionFragment: "getAssets", data: BytesLike): Result;
   decodeFunctionResult(functionFragment: "getPolicy", data: BytesLike): Result;
   decodeFunctionResult(functionFragment: "initAsset", data: BytesLike): Result;
   decodeFunctionResult(functionFragment: "initialize", data: BytesLike): Result;
   decodeFunctionResult(functionFragment: "isActive", data: BytesLike): Result;
   decodeFunctionResult(functionFragment: "isFreezed", data: BytesLike): Result;
-  decodeFunctionResult(
-    functionFragment: "lockedAssets",
-    data: BytesLike
-  ): Result;
-  decodeFunctionResult(
-    functionFragment: "policyCount",
-    data: BytesLike
-  ): Result;
-  decodeFunctionResult(
-    functionFragment: "updateStateOnApplyCover",
-    data: BytesLike
-  ): Result;
-  decodeFunctionResult(
-    functionFragment: "updateStateOnPolicy",
-    data: BytesLike
-  ): Result;
-  decodeFunctionResult(
-    functionFragment: "updateStateOnUnlock",
-    data: BytesLike
-  ): Result;
+  decodeFunctionResult(functionFragment: "lockedAssets", data: BytesLike): Result;
+  decodeFunctionResult(functionFragment: "policyCount", data: BytesLike): Result;
+  decodeFunctionResult(functionFragment: "updateStateOnApplyCover", data: BytesLike): Result;
+  decodeFunctionResult(functionFragment: "updateStateOnPolicy", data: BytesLike): Result;
+  decodeFunctionResult(functionFragment: "updateStateOnUnlock", data: BytesLike): Result;
 
   events: {
     "AssetInitialized(uint256,string)": EventFragment;
@@ -214,13 +162,9 @@ export interface AssetInitializedEventObject {
   assetId: BigNumber;
   asset: string;
 }
-export type AssetInitializedEvent = TypedEvent<
-  [BigNumber, string],
-  AssetInitializedEventObject
->;
+export type AssetInitializedEvent = TypedEvent<[BigNumber, string], AssetInitializedEventObject>;
 
-export type AssetInitializedEventFilter =
-  TypedEventFilter<AssetInitializedEvent>;
+export type AssetInitializedEventFilter = TypedEventFilter<AssetInitializedEvent>;
 
 export interface InitializedEventObject {
   version: number;
@@ -246,9 +190,7 @@ export interface RiskPoolCore extends BaseContract {
     eventFilter?: TypedEventFilter<TEvent>
   ): Array<TypedListener<TEvent>>;
   listeners(eventName?: string): Array<Listener>;
-  removeAllListeners<TEvent extends TypedEvent>(
-    eventFilter: TypedEventFilter<TEvent>
-  ): this;
+  removeAllListeners<TEvent extends TypedEvent>(eventFilter: TypedEventFilter<TEvent>): this;
   removeAllListeners(eventName?: string): this;
   off: OnEvent<this>;
   on: OnEvent<this>;
@@ -260,10 +202,7 @@ export interface RiskPoolCore extends BaseContract {
 
     addressesProvider(overrides?: CallOverrides): Promise<[string]>;
 
-    assetIds(
-      arg0: PromiseOrValue<string>,
-      overrides?: CallOverrides
-    ): Promise<[BigNumber]>;
+    assetIds(arg0: PromiseOrValue<string>, overrides?: CallOverrides): Promise<[BigNumber]>;
 
     expiredPolicyFunds(
       arg0: PromiseOrValue<BigNumberish>,
@@ -321,10 +260,7 @@ export interface RiskPoolCore extends BaseContract {
 
   addressesProvider(overrides?: CallOverrides): Promise<string>;
 
-  assetIds(
-    arg0: PromiseOrValue<string>,
-    overrides?: CallOverrides
-  ): Promise<BigNumber>;
+  assetIds(arg0: PromiseOrValue<string>, overrides?: CallOverrides): Promise<BigNumber>;
 
   expiredPolicyFunds(
     arg0: PromiseOrValue<BigNumberish>,
@@ -382,10 +318,7 @@ export interface RiskPoolCore extends BaseContract {
 
     addressesProvider(overrides?: CallOverrides): Promise<string>;
 
-    assetIds(
-      arg0: PromiseOrValue<string>,
-      overrides?: CallOverrides
-    ): Promise<BigNumber>;
+    assetIds(arg0: PromiseOrValue<string>, overrides?: CallOverrides): Promise<BigNumber>;
 
     expiredPolicyFunds(
       arg0: PromiseOrValue<BigNumberish>,
@@ -399,10 +332,7 @@ export interface RiskPoolCore extends BaseContract {
       overrides?: CallOverrides
     ): Promise<CoreLibrary.PolicyStructOutput>;
 
-    initAsset(
-      assetSymbol: PromiseOrValue<string>,
-      overrides?: CallOverrides
-    ): Promise<void>;
+    initAsset(assetSymbol: PromiseOrValue<string>, overrides?: CallOverrides): Promise<void>;
 
     initialize(
       _addressesProvider: PromiseOrValue<string>,
@@ -436,9 +366,7 @@ export interface RiskPoolCore extends BaseContract {
     updateStateOnUnlock(
       timestamp: PromiseOrValue<BigNumberish>,
       overrides?: CallOverrides
-    ): Promise<
-      [BigNumber, BigNumber] & { unlocksAt: BigNumber; unlockAmount: BigNumber }
-    >;
+    ): Promise<[BigNumber, BigNumber] & { unlocksAt: BigNumber; unlockAmount: BigNumber }>;
   };
 
   filters: {
@@ -460,10 +388,7 @@ export interface RiskPoolCore extends BaseContract {
 
     addressesProvider(overrides?: CallOverrides): Promise<BigNumber>;
 
-    assetIds(
-      arg0: PromiseOrValue<string>,
-      overrides?: CallOverrides
-    ): Promise<BigNumber>;
+    assetIds(arg0: PromiseOrValue<string>, overrides?: CallOverrides): Promise<BigNumber>;
 
     expiredPolicyFunds(
       arg0: PromiseOrValue<BigNumberish>,

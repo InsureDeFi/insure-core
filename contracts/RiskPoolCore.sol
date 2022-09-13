@@ -61,7 +61,6 @@ contract RiskPoolCore is Initializable {
   ) external onlyRiskPool returns (uint256 policyId) {
     lockedAssets += payOutAmount;
     policyId = policyCount++;
-
     _policies[policyId] = CoreLibrary.Policy({
       id: policyId,
       endTime: endTime,
@@ -73,7 +72,6 @@ contract RiskPoolCore is Initializable {
       asset: assetSymbol,
       utilized: false
     });
-
     uint256 unlocksAt = calculateUnlockTimestamp(endTime, 1);
     expiredPolicyFunds[unlocksAt] += payOutAmount;
   }
@@ -81,7 +79,6 @@ contract RiskPoolCore is Initializable {
   function updateStateOnApplyCover(uint256 policyId) external onlyRiskPool {
     CoreLibrary.Policy storage policy = _policies[policyId];
     policy.utilized = true;
-
     uint256 unlocksAt = calculateUnlockTimestamp(policy.endTime, 1);
     unchecked {
       lockedAssets -= policy.payOutAmount;
@@ -101,7 +98,6 @@ contract RiskPoolCore is Initializable {
     unchecked {
       lockedAssets -= unlockAmount;
     }
-
     expiredPolicyFunds[unlocksAt] = 0;
   }
 

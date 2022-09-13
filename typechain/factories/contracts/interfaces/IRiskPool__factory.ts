@@ -4,10 +4,7 @@
 
 import { Contract, Signer, utils } from "ethers";
 import type { Provider } from "@ethersproject/providers";
-import type {
-  IRiskPool,
-  IRiskPoolInterface,
-} from "../../../contracts/interfaces/IRiskPool";
+import type { IRiskPool, IRiskPoolInterface } from "../../../contracts/interfaces/IRiskPool";
 
 const _abi = [
   {
@@ -183,10 +180,7 @@ export class IRiskPool__factory {
   static createInterface(): IRiskPoolInterface {
     return new utils.Interface(_abi) as IRiskPoolInterface;
   }
-  static connect(
-    address: string,
-    signerOrProvider: Signer | Provider
-  ): IRiskPool {
+  static connect(address: string, signerOrProvider: Signer | Provider): IRiskPool {
     return new Contract(address, _abi, signerOrProvider) as IRiskPool;
   }
 }

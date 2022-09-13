@@ -629,10 +629,7 @@ export class IERC4626Upgradeable__factory {
   static createInterface(): IERC4626UpgradeableInterface {
     return new utils.Interface(_abi) as IERC4626UpgradeableInterface;
   }
-  static connect(
-    address: string,
-    signerOrProvider: Signer | Provider
-  ): IERC4626Upgradeable {
+  static connect(address: string, signerOrProvider: Signer | Provider): IERC4626Upgradeable {
     return new Contract(address, _abi, signerOrProvider) as IERC4626Upgradeable;
   }
 }

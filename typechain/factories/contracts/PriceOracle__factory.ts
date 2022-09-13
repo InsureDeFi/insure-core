@@ -4,10 +4,7 @@
 import { Signer, utils, Contract, ContractFactory, Overrides } from "ethers";
 import type { Provider, TransactionRequest } from "@ethersproject/providers";
 import type { PromiseOrValue } from "../../common";
-import type {
-  PriceOracle,
-  PriceOracleInterface,
-} from "../../contracts/PriceOracle";
+import type { PriceOracle, PriceOracleInterface } from "../../contracts/PriceOracle";
 
 const _abi = [
   {
@@ -140,9 +137,7 @@ export class PriceOracle__factory extends ContractFactory {
     }
   }
 
-  override deploy(
-    overrides?: Overrides & { from?: PromiseOrValue<string> }
-  ): Promise<PriceOracle> {
+  override deploy(overrides?: Overrides & { from?: PromiseOrValue<string> }): Promise<PriceOracle> {
     return super.deploy(overrides || {}) as Promise<PriceOracle>;
   }
   override getDeployTransaction(
@@ -162,10 +157,7 @@ export class PriceOracle__factory extends ContractFactory {
   static createInterface(): PriceOracleInterface {
     return new utils.Interface(_abi) as PriceOracleInterface;
   }
-  static connect(
-    address: string,
-    signerOrProvider: Signer | Provider
-  ): PriceOracle {
+  static connect(address: string, signerOrProvider: Signer | Provider): PriceOracle {
     return new Contract(address, _abi, signerOrProvider) as PriceOracle;
   }
 }

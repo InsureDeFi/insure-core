@@ -4,10 +4,7 @@
 import { Signer, utils, Contract, ContractFactory, Overrides } from "ethers";
 import type { Provider, TransactionRequest } from "@ethersproject/providers";
 import type { PromiseOrValue } from "../../common";
-import type {
-  RiskPoolCore,
-  RiskPoolCoreInterface,
-} from "../../contracts/RiskPoolCore";
+import type { RiskPoolCore, RiskPoolCoreInterface } from "../../contracts/RiskPoolCore";
 
 const _abi = [
   {
@@ -413,10 +410,7 @@ export class RiskPoolCore__factory extends ContractFactory {
   static createInterface(): RiskPoolCoreInterface {
     return new utils.Interface(_abi) as RiskPoolCoreInterface;
   }
-  static connect(
-    address: string,
-    signerOrProvider: Signer | Provider
-  ): RiskPoolCore {
+  static connect(address: string, signerOrProvider: Signer | Provider): RiskPoolCore {
     return new Contract(address, _abi, signerOrProvider) as RiskPoolCore;
   }
 }

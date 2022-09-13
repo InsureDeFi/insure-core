@@ -4,10 +4,7 @@
 import { Signer, utils, Contract, ContractFactory, Overrides } from "ethers";
 import type { Provider, TransactionRequest } from "@ethersproject/providers";
 import type { PromiseOrValue } from "../../common";
-import type {
-  PremiumEngine,
-  PremiumEngineInterface,
-} from "../../contracts/PremiumEngine";
+import type { PremiumEngine, PremiumEngineInterface } from "../../contracts/PremiumEngine";
 
 const _abi = [
   {
@@ -161,10 +158,7 @@ export class PremiumEngine__factory extends ContractFactory {
   static createInterface(): PremiumEngineInterface {
     return new utils.Interface(_abi) as PremiumEngineInterface;
   }
-  static connect(
-    address: string,
-    signerOrProvider: Signer | Provider
-  ): PremiumEngine {
+  static connect(address: string, signerOrProvider: Signer | Provider): PremiumEngine {
     return new Contract(address, _abi, signerOrProvider) as PremiumEngine;
   }
 }

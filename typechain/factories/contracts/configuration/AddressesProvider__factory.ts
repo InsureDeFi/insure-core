@@ -580,10 +580,7 @@ export class AddressesProvider__factory extends ContractFactory {
   static createInterface(): AddressesProviderInterface {
     return new utils.Interface(_abi) as AddressesProviderInterface;
   }
-  static connect(
-    address: string,
-    signerOrProvider: Signer | Provider
-  ): AddressesProvider {
+  static connect(address: string, signerOrProvider: Signer | Provider): AddressesProvider {
     return new Contract(address, _abi, signerOrProvider) as AddressesProvider;
   }
 }

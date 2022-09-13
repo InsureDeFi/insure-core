@@ -62,10 +62,7 @@ export class ERC1967Upgrade__factory {
   static createInterface(): ERC1967UpgradeInterface {
     return new utils.Interface(_abi) as ERC1967UpgradeInterface;
   }
-  static connect(
-    address: string,
-    signerOrProvider: Signer | Provider
-  ): ERC1967Upgrade {
+  static connect(address: string, signerOrProvider: Signer | Provider): ERC1967Upgrade {
     return new Contract(address, _abi, signerOrProvider) as ERC1967Upgrade;
   }
 }

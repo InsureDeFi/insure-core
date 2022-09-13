@@ -181,9 +181,7 @@ export class ProxyAdmin__factory extends ContractFactory {
     }
   }
 
-  override deploy(
-    overrides?: Overrides & { from?: PromiseOrValue<string> }
-  ): Promise<ProxyAdmin> {
+  override deploy(overrides?: Overrides & { from?: PromiseOrValue<string> }): Promise<ProxyAdmin> {
     return super.deploy(overrides || {}) as Promise<ProxyAdmin>;
   }
   override getDeployTransaction(
@@ -203,10 +201,7 @@ export class ProxyAdmin__factory extends ContractFactory {
   static createInterface(): ProxyAdminInterface {
     return new utils.Interface(_abi) as ProxyAdminInterface;
   }
-  static connect(
-    address: string,
-    signerOrProvider: Signer | Provider
-  ): ProxyAdmin {
+  static connect(address: string, signerOrProvider: Signer | Provider): ProxyAdmin {
     return new Contract(address, _abi, signerOrProvider) as ProxyAdmin;
   }
 }

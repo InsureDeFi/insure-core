@@ -30,14 +30,7 @@ export class ReentrancyGuardUpgradeable__factory {
   static createInterface(): ReentrancyGuardUpgradeableInterface {
     return new utils.Interface(_abi) as ReentrancyGuardUpgradeableInterface;
   }
-  static connect(
-    address: string,
-    signerOrProvider: Signer | Provider
-  ): ReentrancyGuardUpgradeable {
-    return new Contract(
-      address,
-      _abi,
-      signerOrProvider
-    ) as ReentrancyGuardUpgradeable;
+  static connect(address: string, signerOrProvider: Signer | Provider): ReentrancyGuardUpgradeable {
+    return new Contract(address, _abi, signerOrProvider) as ReentrancyGuardUpgradeable;
   }
 }

@@ -39,47 +39,20 @@ export interface ParametersProviderInterface extends utils.Interface {
       | "getProtocolFee"
   ): FunctionFragment;
 
-  encodeFunctionData(
-    functionFragment: "PARAMETERS_PROVIDER_REVISION",
-    values?: undefined
-  ): string;
+  encodeFunctionData(functionFragment: "PARAMETERS_PROVIDER_REVISION", values?: undefined): string;
   encodeFunctionData(
     functionFragment: "calculateProtocolFee",
     values: [PromiseOrValue<BigNumberish>]
   ): string;
-  encodeFunctionData(
-    functionFragment: "getMinCoverAmount",
-    values?: undefined
-  ): string;
-  encodeFunctionData(
-    functionFragment: "getPayOutThreshold",
-    values?: undefined
-  ): string;
-  encodeFunctionData(
-    functionFragment: "getProtocolFee",
-    values?: undefined
-  ): string;
+  encodeFunctionData(functionFragment: "getMinCoverAmount", values?: undefined): string;
+  encodeFunctionData(functionFragment: "getPayOutThreshold", values?: undefined): string;
+  encodeFunctionData(functionFragment: "getProtocolFee", values?: undefined): string;
 
-  decodeFunctionResult(
-    functionFragment: "PARAMETERS_PROVIDER_REVISION",
-    data: BytesLike
-  ): Result;
-  decodeFunctionResult(
-    functionFragment: "calculateProtocolFee",
-    data: BytesLike
-  ): Result;
-  decodeFunctionResult(
-    functionFragment: "getMinCoverAmount",
-    data: BytesLike
-  ): Result;
-  decodeFunctionResult(
-    functionFragment: "getPayOutThreshold",
-    data: BytesLike
-  ): Result;
-  decodeFunctionResult(
-    functionFragment: "getProtocolFee",
-    data: BytesLike
-  ): Result;
+  decodeFunctionResult(functionFragment: "PARAMETERS_PROVIDER_REVISION", data: BytesLike): Result;
+  decodeFunctionResult(functionFragment: "calculateProtocolFee", data: BytesLike): Result;
+  decodeFunctionResult(functionFragment: "getMinCoverAmount", data: BytesLike): Result;
+  decodeFunctionResult(functionFragment: "getPayOutThreshold", data: BytesLike): Result;
+  decodeFunctionResult(functionFragment: "getProtocolFee", data: BytesLike): Result;
 
   events: {};
 }
@@ -101,9 +74,7 @@ export interface ParametersProvider extends BaseContract {
     eventFilter?: TypedEventFilter<TEvent>
   ): Array<TypedListener<TEvent>>;
   listeners(eventName?: string): Array<Listener>;
-  removeAllListeners<TEvent extends TypedEvent>(
-    eventFilter: TypedEventFilter<TEvent>
-  ): this;
+  removeAllListeners<TEvent extends TypedEvent>(eventFilter: TypedEventFilter<TEvent>): this;
   removeAllListeners(eventName?: string): this;
   off: OnEvent<this>;
   on: OnEvent<this>;
@@ -111,9 +82,7 @@ export interface ParametersProvider extends BaseContract {
   removeListener: OnEvent<this>;
 
   functions: {
-    PARAMETERS_PROVIDER_REVISION(
-      overrides?: CallOverrides
-    ): Promise<[BigNumber]>;
+    PARAMETERS_PROVIDER_REVISION(overrides?: CallOverrides): Promise<[BigNumber]>;
 
     calculateProtocolFee(
       premium: PromiseOrValue<BigNumberish>,
@@ -173,9 +142,7 @@ export interface ParametersProvider extends BaseContract {
   };
 
   populateTransaction: {
-    PARAMETERS_PROVIDER_REVISION(
-      overrides?: CallOverrides
-    ): Promise<PopulatedTransaction>;
+    PARAMETERS_PROVIDER_REVISION(overrides?: CallOverrides): Promise<PopulatedTransaction>;
 
     calculateProtocolFee(
       premium: PromiseOrValue<BigNumberish>,
@@ -184,9 +151,7 @@ export interface ParametersProvider extends BaseContract {
 
     getMinCoverAmount(overrides?: CallOverrides): Promise<PopulatedTransaction>;
 
-    getPayOutThreshold(
-      overrides?: CallOverrides
-    ): Promise<PopulatedTransaction>;
+    getPayOutThreshold(overrides?: CallOverrides): Promise<PopulatedTransaction>;
 
     getProtocolFee(overrides?: CallOverrides): Promise<PopulatedTransaction>;
   };

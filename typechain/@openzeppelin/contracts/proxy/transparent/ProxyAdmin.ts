@@ -13,11 +13,7 @@ import type {
   Signer,
   utils,
 } from "ethers";
-import type {
-  FunctionFragment,
-  Result,
-  EventFragment,
-} from "@ethersproject/abi";
+import type { FunctionFragment, Result, EventFragment } from "@ethersproject/abi";
 import type { Listener, Provider } from "@ethersproject/providers";
 import type {
   TypedEventFilter,
@@ -55,19 +51,13 @@ export interface ProxyAdminInterface extends utils.Interface {
     functionFragment: "changeProxyAdmin",
     values: [PromiseOrValue<string>, PromiseOrValue<string>]
   ): string;
-  encodeFunctionData(
-    functionFragment: "getProxyAdmin",
-    values: [PromiseOrValue<string>]
-  ): string;
+  encodeFunctionData(functionFragment: "getProxyAdmin", values: [PromiseOrValue<string>]): string;
   encodeFunctionData(
     functionFragment: "getProxyImplementation",
     values: [PromiseOrValue<string>]
   ): string;
   encodeFunctionData(functionFragment: "owner", values?: undefined): string;
-  encodeFunctionData(
-    functionFragment: "renounceOwnership",
-    values?: undefined
-  ): string;
+  encodeFunctionData(functionFragment: "renounceOwnership", values?: undefined): string;
   encodeFunctionData(
     functionFragment: "transferOwnership",
     values: [PromiseOrValue<string>]
@@ -78,39 +68,17 @@ export interface ProxyAdminInterface extends utils.Interface {
   ): string;
   encodeFunctionData(
     functionFragment: "upgradeAndCall",
-    values: [
-      PromiseOrValue<string>,
-      PromiseOrValue<string>,
-      PromiseOrValue<BytesLike>
-    ]
+    values: [PromiseOrValue<string>, PromiseOrValue<string>, PromiseOrValue<BytesLike>]
   ): string;
 
-  decodeFunctionResult(
-    functionFragment: "changeProxyAdmin",
-    data: BytesLike
-  ): Result;
-  decodeFunctionResult(
-    functionFragment: "getProxyAdmin",
-    data: BytesLike
-  ): Result;
-  decodeFunctionResult(
-    functionFragment: "getProxyImplementation",
-    data: BytesLike
-  ): Result;
+  decodeFunctionResult(functionFragment: "changeProxyAdmin", data: BytesLike): Result;
+  decodeFunctionResult(functionFragment: "getProxyAdmin", data: BytesLike): Result;
+  decodeFunctionResult(functionFragment: "getProxyImplementation", data: BytesLike): Result;
   decodeFunctionResult(functionFragment: "owner", data: BytesLike): Result;
-  decodeFunctionResult(
-    functionFragment: "renounceOwnership",
-    data: BytesLike
-  ): Result;
-  decodeFunctionResult(
-    functionFragment: "transferOwnership",
-    data: BytesLike
-  ): Result;
+  decodeFunctionResult(functionFragment: "renounceOwnership", data: BytesLike): Result;
+  decodeFunctionResult(functionFragment: "transferOwnership", data: BytesLike): Result;
   decodeFunctionResult(functionFragment: "upgrade", data: BytesLike): Result;
-  decodeFunctionResult(
-    functionFragment: "upgradeAndCall",
-    data: BytesLike
-  ): Result;
+  decodeFunctionResult(functionFragment: "upgradeAndCall", data: BytesLike): Result;
 
   events: {
     "OwnershipTransferred(address,address)": EventFragment;
@@ -128,8 +96,7 @@ export type OwnershipTransferredEvent = TypedEvent<
   OwnershipTransferredEventObject
 >;
 
-export type OwnershipTransferredEventFilter =
-  TypedEventFilter<OwnershipTransferredEvent>;
+export type OwnershipTransferredEventFilter = TypedEventFilter<OwnershipTransferredEvent>;
 
 export interface ProxyAdmin extends BaseContract {
   connect(signerOrProvider: Signer | Provider | string): this;
@@ -148,9 +115,7 @@ export interface ProxyAdmin extends BaseContract {
     eventFilter?: TypedEventFilter<TEvent>
   ): Array<TypedListener<TEvent>>;
   listeners(eventName?: string): Array<Listener>;
-  removeAllListeners<TEvent extends TypedEvent>(
-    eventFilter: TypedEventFilter<TEvent>
-  ): this;
+  removeAllListeners<TEvent extends TypedEvent>(eventFilter: TypedEventFilter<TEvent>): this;
   removeAllListeners(eventName?: string): this;
   off: OnEvent<this>;
   on: OnEvent<this>;
@@ -164,10 +129,7 @@ export interface ProxyAdmin extends BaseContract {
       overrides?: Overrides & { from?: PromiseOrValue<string> }
     ): Promise<ContractTransaction>;
 
-    getProxyAdmin(
-      proxy: PromiseOrValue<string>,
-      overrides?: CallOverrides
-    ): Promise<[string]>;
+    getProxyAdmin(proxy: PromiseOrValue<string>, overrides?: CallOverrides): Promise<[string]>;
 
     getProxyImplementation(
       proxy: PromiseOrValue<string>,
@@ -205,15 +167,9 @@ export interface ProxyAdmin extends BaseContract {
     overrides?: Overrides & { from?: PromiseOrValue<string> }
   ): Promise<ContractTransaction>;
 
-  getProxyAdmin(
-    proxy: PromiseOrValue<string>,
-    overrides?: CallOverrides
-  ): Promise<string>;
+  getProxyAdmin(proxy: PromiseOrValue<string>, overrides?: CallOverrides): Promise<string>;
 
-  getProxyImplementation(
-    proxy: PromiseOrValue<string>,
-    overrides?: CallOverrides
-  ): Promise<string>;
+  getProxyImplementation(proxy: PromiseOrValue<string>, overrides?: CallOverrides): Promise<string>;
 
   owner(overrides?: CallOverrides): Promise<string>;
 
@@ -246,10 +202,7 @@ export interface ProxyAdmin extends BaseContract {
       overrides?: CallOverrides
     ): Promise<void>;
 
-    getProxyAdmin(
-      proxy: PromiseOrValue<string>,
-      overrides?: CallOverrides
-    ): Promise<string>;
+    getProxyAdmin(proxy: PromiseOrValue<string>, overrides?: CallOverrides): Promise<string>;
 
     getProxyImplementation(
       proxy: PromiseOrValue<string>,
@@ -260,10 +213,7 @@ export interface ProxyAdmin extends BaseContract {
 
     renounceOwnership(overrides?: CallOverrides): Promise<void>;
 
-    transferOwnership(
-      newOwner: PromiseOrValue<string>,
-      overrides?: CallOverrides
-    ): Promise<void>;
+    transferOwnership(newOwner: PromiseOrValue<string>, overrides?: CallOverrides): Promise<void>;
 
     upgrade(
       proxy: PromiseOrValue<string>,
@@ -297,10 +247,7 @@ export interface ProxyAdmin extends BaseContract {
       overrides?: Overrides & { from?: PromiseOrValue<string> }
     ): Promise<BigNumber>;
 
-    getProxyAdmin(
-      proxy: PromiseOrValue<string>,
-      overrides?: CallOverrides
-    ): Promise<BigNumber>;
+    getProxyAdmin(proxy: PromiseOrValue<string>, overrides?: CallOverrides): Promise<BigNumber>;
 
     getProxyImplementation(
       proxy: PromiseOrValue<string>,

@@ -12,11 +12,7 @@ import type {
   Signer,
   utils,
 } from "ethers";
-import type {
-  FunctionFragment,
-  Result,
-  EventFragment,
-} from "@ethersproject/abi";
+import type { FunctionFragment, Result, EventFragment } from "@ethersproject/abi";
 import type { Listener, Provider } from "@ethersproject/providers";
 import type {
   TypedEventFilter,
@@ -46,40 +42,19 @@ export interface PriceOracleInterface extends utils.Interface {
       | "ref"
   ): FunctionFragment;
 
-  encodeFunctionData(
-    functionFragment: "BASE_CURRENCY",
-    values?: undefined
-  ): string;
-  encodeFunctionData(
-    functionFragment: "PRICE_ORACLE_REVISION",
-    values?: undefined
-  ): string;
+  encodeFunctionData(functionFragment: "BASE_CURRENCY", values?: undefined): string;
+  encodeFunctionData(functionFragment: "PRICE_ORACLE_REVISION", values?: undefined): string;
   encodeFunctionData(
     functionFragment: "getMultiPrices",
     values: [PromiseOrValue<string>[]]
   ): string;
-  encodeFunctionData(
-    functionFragment: "getPrice",
-    values: [PromiseOrValue<string>]
-  ): string;
-  encodeFunctionData(
-    functionFragment: "initialize",
-    values: [PromiseOrValue<string>]
-  ): string;
+  encodeFunctionData(functionFragment: "getPrice", values: [PromiseOrValue<string>]): string;
+  encodeFunctionData(functionFragment: "initialize", values: [PromiseOrValue<string>]): string;
   encodeFunctionData(functionFragment: "ref", values?: undefined): string;
 
-  decodeFunctionResult(
-    functionFragment: "BASE_CURRENCY",
-    data: BytesLike
-  ): Result;
-  decodeFunctionResult(
-    functionFragment: "PRICE_ORACLE_REVISION",
-    data: BytesLike
-  ): Result;
-  decodeFunctionResult(
-    functionFragment: "getMultiPrices",
-    data: BytesLike
-  ): Result;
+  decodeFunctionResult(functionFragment: "BASE_CURRENCY", data: BytesLike): Result;
+  decodeFunctionResult(functionFragment: "PRICE_ORACLE_REVISION", data: BytesLike): Result;
+  decodeFunctionResult(functionFragment: "getMultiPrices", data: BytesLike): Result;
   decodeFunctionResult(functionFragment: "getPrice", data: BytesLike): Result;
   decodeFunctionResult(functionFragment: "initialize", data: BytesLike): Result;
   decodeFunctionResult(functionFragment: "ref", data: BytesLike): Result;
@@ -115,9 +90,7 @@ export interface PriceOracle extends BaseContract {
     eventFilter?: TypedEventFilter<TEvent>
   ): Array<TypedListener<TEvent>>;
   listeners(eventName?: string): Array<Listener>;
-  removeAllListeners<TEvent extends TypedEvent>(
-    eventFilter: TypedEventFilter<TEvent>
-  ): this;
+  removeAllListeners<TEvent extends TypedEvent>(eventFilter: TypedEventFilter<TEvent>): this;
   removeAllListeners(eventName?: string): this;
   off: OnEvent<this>;
   on: OnEvent<this>;
@@ -134,10 +107,7 @@ export interface PriceOracle extends BaseContract {
       overrides?: CallOverrides
     ): Promise<[BigNumber[]]>;
 
-    getPrice(
-      asset: PromiseOrValue<string>,
-      overrides?: CallOverrides
-    ): Promise<[BigNumber]>;
+    getPrice(asset: PromiseOrValue<string>, overrides?: CallOverrides): Promise<[BigNumber]>;
 
     initialize(
       _ref: PromiseOrValue<string>,
@@ -151,15 +121,9 @@ export interface PriceOracle extends BaseContract {
 
   PRICE_ORACLE_REVISION(overrides?: CallOverrides): Promise<BigNumber>;
 
-  getMultiPrices(
-    assets: PromiseOrValue<string>[],
-    overrides?: CallOverrides
-  ): Promise<BigNumber[]>;
+  getMultiPrices(assets: PromiseOrValue<string>[], overrides?: CallOverrides): Promise<BigNumber[]>;
 
-  getPrice(
-    asset: PromiseOrValue<string>,
-    overrides?: CallOverrides
-  ): Promise<BigNumber>;
+  getPrice(asset: PromiseOrValue<string>, overrides?: CallOverrides): Promise<BigNumber>;
 
   initialize(
     _ref: PromiseOrValue<string>,
@@ -178,15 +142,9 @@ export interface PriceOracle extends BaseContract {
       overrides?: CallOverrides
     ): Promise<BigNumber[]>;
 
-    getPrice(
-      asset: PromiseOrValue<string>,
-      overrides?: CallOverrides
-    ): Promise<BigNumber>;
+    getPrice(asset: PromiseOrValue<string>, overrides?: CallOverrides): Promise<BigNumber>;
 
-    initialize(
-      _ref: PromiseOrValue<string>,
-      overrides?: CallOverrides
-    ): Promise<void>;
+    initialize(_ref: PromiseOrValue<string>, overrides?: CallOverrides): Promise<void>;
 
     ref(overrides?: CallOverrides): Promise<string>;
   };
@@ -201,15 +159,9 @@ export interface PriceOracle extends BaseContract {
 
     PRICE_ORACLE_REVISION(overrides?: CallOverrides): Promise<BigNumber>;
 
-    getMultiPrices(
-      assets: PromiseOrValue<string>[],
-      overrides?: CallOverrides
-    ): Promise<BigNumber>;
+    getMultiPrices(assets: PromiseOrValue<string>[], overrides?: CallOverrides): Promise<BigNumber>;
 
-    getPrice(
-      asset: PromiseOrValue<string>,
-      overrides?: CallOverrides
-    ): Promise<BigNumber>;
+    getPrice(asset: PromiseOrValue<string>, overrides?: CallOverrides): Promise<BigNumber>;
 
     initialize(
       _ref: PromiseOrValue<string>,
@@ -222,9 +174,7 @@ export interface PriceOracle extends BaseContract {
   populateTransaction: {
     BASE_CURRENCY(overrides?: CallOverrides): Promise<PopulatedTransaction>;
 
-    PRICE_ORACLE_REVISION(
-      overrides?: CallOverrides
-    ): Promise<PopulatedTransaction>;
+    PRICE_ORACLE_REVISION(overrides?: CallOverrides): Promise<PopulatedTransaction>;
 
     getMultiPrices(
       assets: PromiseOrValue<string>[],

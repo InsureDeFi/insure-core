@@ -13,11 +13,7 @@ import type {
   Signer,
   utils,
 } from "ethers";
-import type {
-  FunctionFragment,
-  Result,
-  EventFragment,
-} from "@ethersproject/abi";
+import type { FunctionFragment, Result, EventFragment } from "@ethersproject/abi";
 import type { Listener, Provider } from "@ethersproject/providers";
 import type {
   TypedEventFilter,
@@ -115,14 +111,8 @@ export interface RiskPoolInterface extends utils.Interface {
       | "withdraw"
   ): FunctionFragment;
 
-  encodeFunctionData(
-    functionFragment: "POOL_REVISION",
-    values?: undefined
-  ): string;
-  encodeFunctionData(
-    functionFragment: "addressesProvider",
-    values?: undefined
-  ): string;
+  encodeFunctionData(functionFragment: "POOL_REVISION", values?: undefined): string;
+  encodeFunctionData(functionFragment: "addressesProvider", values?: undefined): string;
   encodeFunctionData(
     functionFragment: "allowance",
     values: [PromiseOrValue<string>, PromiseOrValue<string>]
@@ -140,14 +130,8 @@ export interface RiskPoolInterface extends utils.Interface {
     values: [PromiseOrValue<string>, PromiseOrValue<BigNumberish>]
   ): string;
   encodeFunctionData(functionFragment: "asset", values?: undefined): string;
-  encodeFunctionData(
-    functionFragment: "availableAssets",
-    values?: undefined
-  ): string;
-  encodeFunctionData(
-    functionFragment: "balanceOf",
-    values: [PromiseOrValue<string>]
-  ): string;
+  encodeFunctionData(functionFragment: "availableAssets", values?: undefined): string;
+  encodeFunctionData(functionFragment: "balanceOf", values: [PromiseOrValue<string>]): string;
   encodeFunctionData(
     functionFragment: "convertToAssets",
     values: [PromiseOrValue<BigNumberish>]
@@ -183,35 +167,17 @@ export interface RiskPoolInterface extends utils.Interface {
       PromiseOrValue<string>
     ]
   ): string;
-  encodeFunctionData(
-    functionFragment: "maxDeposit",
-    values: [PromiseOrValue<string>]
-  ): string;
-  encodeFunctionData(
-    functionFragment: "maxMint",
-    values: [PromiseOrValue<string>]
-  ): string;
-  encodeFunctionData(
-    functionFragment: "maxRedeem",
-    values: [PromiseOrValue<string>]
-  ): string;
-  encodeFunctionData(
-    functionFragment: "maxWithdraw",
-    values: [PromiseOrValue<string>]
-  ): string;
+  encodeFunctionData(functionFragment: "maxDeposit", values: [PromiseOrValue<string>]): string;
+  encodeFunctionData(functionFragment: "maxMint", values: [PromiseOrValue<string>]): string;
+  encodeFunctionData(functionFragment: "maxRedeem", values: [PromiseOrValue<string>]): string;
+  encodeFunctionData(functionFragment: "maxWithdraw", values: [PromiseOrValue<string>]): string;
   encodeFunctionData(
     functionFragment: "mint",
     values: [PromiseOrValue<BigNumberish>, PromiseOrValue<string>]
   ): string;
   encodeFunctionData(functionFragment: "name", values?: undefined): string;
-  encodeFunctionData(
-    functionFragment: "parametersProvider",
-    values?: undefined
-  ): string;
-  encodeFunctionData(
-    functionFragment: "premiumEngine",
-    values?: undefined
-  ): string;
+  encodeFunctionData(functionFragment: "parametersProvider", values?: undefined): string;
+  encodeFunctionData(functionFragment: "premiumEngine", values?: undefined): string;
   encodeFunctionData(
     functionFragment: "previewDeposit",
     values: [PromiseOrValue<BigNumberish>]
@@ -228,158 +194,71 @@ export interface RiskPoolInterface extends utils.Interface {
     functionFragment: "previewWithdraw",
     values: [PromiseOrValue<BigNumberish>]
   ): string;
-  encodeFunctionData(
-    functionFragment: "priceOracle",
-    values?: undefined
-  ): string;
+  encodeFunctionData(functionFragment: "priceOracle", values?: undefined): string;
   encodeFunctionData(
     functionFragment: "redeem",
-    values: [
-      PromiseOrValue<BigNumberish>,
-      PromiseOrValue<string>,
-      PromiseOrValue<string>
-    ]
+    values: [PromiseOrValue<BigNumberish>, PromiseOrValue<string>, PromiseOrValue<string>]
   ): string;
   encodeFunctionData(functionFragment: "symbol", values?: undefined): string;
-  encodeFunctionData(
-    functionFragment: "totalAssets",
-    values?: undefined
-  ): string;
-  encodeFunctionData(
-    functionFragment: "totalSupply",
-    values?: undefined
-  ): string;
+  encodeFunctionData(functionFragment: "totalAssets", values?: undefined): string;
+  encodeFunctionData(functionFragment: "totalSupply", values?: undefined): string;
   encodeFunctionData(
     functionFragment: "transfer",
     values: [PromiseOrValue<string>, PromiseOrValue<BigNumberish>]
   ): string;
   encodeFunctionData(
     functionFragment: "transferFrom",
-    values: [
-      PromiseOrValue<string>,
-      PromiseOrValue<string>,
-      PromiseOrValue<BigNumberish>
-    ]
+    values: [PromiseOrValue<string>, PromiseOrValue<string>, PromiseOrValue<BigNumberish>]
   ): string;
   encodeFunctionData(
     functionFragment: "unlockPolicyFunds",
     values: [PromiseOrValue<BigNumberish>]
   ): string;
-  encodeFunctionData(
-    functionFragment: "utilizationRate",
-    values?: undefined
-  ): string;
+  encodeFunctionData(functionFragment: "utilizationRate", values?: undefined): string;
   encodeFunctionData(
     functionFragment: "withdraw",
-    values: [
-      PromiseOrValue<BigNumberish>,
-      PromiseOrValue<string>,
-      PromiseOrValue<string>
-    ]
+    values: [PromiseOrValue<BigNumberish>, PromiseOrValue<string>, PromiseOrValue<string>]
   ): string;
 
-  decodeFunctionResult(
-    functionFragment: "POOL_REVISION",
-    data: BytesLike
-  ): Result;
-  decodeFunctionResult(
-    functionFragment: "addressesProvider",
-    data: BytesLike
-  ): Result;
+  decodeFunctionResult(functionFragment: "POOL_REVISION", data: BytesLike): Result;
+  decodeFunctionResult(functionFragment: "addressesProvider", data: BytesLike): Result;
   decodeFunctionResult(functionFragment: "allowance", data: BytesLike): Result;
   decodeFunctionResult(functionFragment: "applyCover", data: BytesLike): Result;
-  decodeFunctionResult(
-    functionFragment: "applyCoverBatch",
-    data: BytesLike
-  ): Result;
+  decodeFunctionResult(functionFragment: "applyCoverBatch", data: BytesLike): Result;
   decodeFunctionResult(functionFragment: "approve", data: BytesLike): Result;
   decodeFunctionResult(functionFragment: "asset", data: BytesLike): Result;
-  decodeFunctionResult(
-    functionFragment: "availableAssets",
-    data: BytesLike
-  ): Result;
+  decodeFunctionResult(functionFragment: "availableAssets", data: BytesLike): Result;
   decodeFunctionResult(functionFragment: "balanceOf", data: BytesLike): Result;
-  decodeFunctionResult(
-    functionFragment: "convertToAssets",
-    data: BytesLike
-  ): Result;
-  decodeFunctionResult(
-    functionFragment: "convertToShares",
-    data: BytesLike
-  ): Result;
+  decodeFunctionResult(functionFragment: "convertToAssets", data: BytesLike): Result;
+  decodeFunctionResult(functionFragment: "convertToShares", data: BytesLike): Result;
   decodeFunctionResult(functionFragment: "core", data: BytesLike): Result;
   decodeFunctionResult(functionFragment: "decimals", data: BytesLike): Result;
-  decodeFunctionResult(
-    functionFragment: "decreaseAllowance",
-    data: BytesLike
-  ): Result;
+  decodeFunctionResult(functionFragment: "decreaseAllowance", data: BytesLike): Result;
   decodeFunctionResult(functionFragment: "deposit", data: BytesLike): Result;
-  decodeFunctionResult(
-    functionFragment: "increaseAllowance",
-    data: BytesLike
-  ): Result;
+  decodeFunctionResult(functionFragment: "increaseAllowance", data: BytesLike): Result;
   decodeFunctionResult(functionFragment: "initialize", data: BytesLike): Result;
   decodeFunctionResult(functionFragment: "insure", data: BytesLike): Result;
   decodeFunctionResult(functionFragment: "maxDeposit", data: BytesLike): Result;
   decodeFunctionResult(functionFragment: "maxMint", data: BytesLike): Result;
   decodeFunctionResult(functionFragment: "maxRedeem", data: BytesLike): Result;
-  decodeFunctionResult(
-    functionFragment: "maxWithdraw",
-    data: BytesLike
-  ): Result;
+  decodeFunctionResult(functionFragment: "maxWithdraw", data: BytesLike): Result;
   decodeFunctionResult(functionFragment: "mint", data: BytesLike): Result;
   decodeFunctionResult(functionFragment: "name", data: BytesLike): Result;
-  decodeFunctionResult(
-    functionFragment: "parametersProvider",
-    data: BytesLike
-  ): Result;
-  decodeFunctionResult(
-    functionFragment: "premiumEngine",
-    data: BytesLike
-  ): Result;
-  decodeFunctionResult(
-    functionFragment: "previewDeposit",
-    data: BytesLike
-  ): Result;
-  decodeFunctionResult(
-    functionFragment: "previewMint",
-    data: BytesLike
-  ): Result;
-  decodeFunctionResult(
-    functionFragment: "previewRedeem",
-    data: BytesLike
-  ): Result;
-  decodeFunctionResult(
-    functionFragment: "previewWithdraw",
-    data: BytesLike
-  ): Result;
-  decodeFunctionResult(
-    functionFragment: "priceOracle",
-    data: BytesLike
-  ): Result;
+  decodeFunctionResult(functionFragment: "parametersProvider", data: BytesLike): Result;
+  decodeFunctionResult(functionFragment: "premiumEngine", data: BytesLike): Result;
+  decodeFunctionResult(functionFragment: "previewDeposit", data: BytesLike): Result;
+  decodeFunctionResult(functionFragment: "previewMint", data: BytesLike): Result;
+  decodeFunctionResult(functionFragment: "previewRedeem", data: BytesLike): Result;
+  decodeFunctionResult(functionFragment: "previewWithdraw", data: BytesLike): Result;
+  decodeFunctionResult(functionFragment: "priceOracle", data: BytesLike): Result;
   decodeFunctionResult(functionFragment: "redeem", data: BytesLike): Result;
   decodeFunctionResult(functionFragment: "symbol", data: BytesLike): Result;
-  decodeFunctionResult(
-    functionFragment: "totalAssets",
-    data: BytesLike
-  ): Result;
-  decodeFunctionResult(
-    functionFragment: "totalSupply",
-    data: BytesLike
-  ): Result;
+  decodeFunctionResult(functionFragment: "totalAssets", data: BytesLike): Result;
+  decodeFunctionResult(functionFragment: "totalSupply", data: BytesLike): Result;
   decodeFunctionResult(functionFragment: "transfer", data: BytesLike): Result;
-  decodeFunctionResult(
-    functionFragment: "transferFrom",
-    data: BytesLike
-  ): Result;
-  decodeFunctionResult(
-    functionFragment: "unlockPolicyFunds",
-    data: BytesLike
-  ): Result;
-  decodeFunctionResult(
-    functionFragment: "utilizationRate",
-    data: BytesLike
-  ): Result;
+  decodeFunctionResult(functionFragment: "transferFrom", data: BytesLike): Result;
+  decodeFunctionResult(functionFragment: "unlockPolicyFunds", data: BytesLike): Result;
+  decodeFunctionResult(functionFragment: "utilizationRate", data: BytesLike): Result;
   decodeFunctionResult(functionFragment: "withdraw", data: BytesLike): Result;
 
   events: {
@@ -408,10 +287,7 @@ export interface ApprovalEventObject {
   spender: string;
   value: BigNumber;
 }
-export type ApprovalEvent = TypedEvent<
-  [string, string, BigNumber],
-  ApprovalEventObject
->;
+export type ApprovalEvent = TypedEvent<[string, string, BigNumber], ApprovalEventObject>;
 
 export type ApprovalEventFilter = TypedEventFilter<ApprovalEvent>;
 
@@ -421,10 +297,7 @@ export interface DepositEventObject {
   assets: BigNumber;
   shares: BigNumber;
 }
-export type DepositEvent = TypedEvent<
-  [string, string, BigNumber, BigNumber],
-  DepositEventObject
->;
+export type DepositEvent = TypedEvent<[string, string, BigNumber, BigNumber], DepositEventObject>;
 
 export type DepositEventFilter = TypedEventFilter<DepositEvent>;
 
@@ -447,17 +320,7 @@ export interface InsuredEventObject {
   threshold: number;
 }
 export type InsuredEvent = TypedEvent<
-  [
-    string,
-    BigNumber,
-    string,
-    BigNumber,
-    BigNumber,
-    BigNumber,
-    BigNumber,
-    BigNumber,
-    number
-  ],
+  [string, BigNumber, string, BigNumber, BigNumber, BigNumber, BigNumber, BigNumber, number],
   InsuredEventObject
 >;
 
@@ -475,10 +338,7 @@ export interface TransferEventObject {
   to: string;
   value: BigNumber;
 }
-export type TransferEvent = TypedEvent<
-  [string, string, BigNumber],
-  TransferEventObject
->;
+export type TransferEvent = TypedEvent<[string, string, BigNumber], TransferEventObject>;
 
 export type TransferEventFilter = TypedEventFilter<TransferEvent>;
 
@@ -486,10 +346,7 @@ export interface UnlockedEventObject {
   timestamp: BigNumber;
   assetsUnlocked: BigNumber;
 }
-export type UnlockedEvent = TypedEvent<
-  [BigNumber, BigNumber],
-  UnlockedEventObject
->;
+export type UnlockedEvent = TypedEvent<[BigNumber, BigNumber], UnlockedEventObject>;
 
 export type UnlockedEventFilter = TypedEventFilter<UnlockedEvent>;
 
@@ -524,9 +381,7 @@ export interface RiskPool extends BaseContract {
     eventFilter?: TypedEventFilter<TEvent>
   ): Array<TypedListener<TEvent>>;
   listeners(eventName?: string): Array<Listener>;
-  removeAllListeners<TEvent extends TypedEvent>(
-    eventFilter: TypedEventFilter<TEvent>
-  ): this;
+  removeAllListeners<TEvent extends TypedEvent>(eventFilter: TypedEventFilter<TEvent>): this;
   removeAllListeners(eventName?: string): this;
   off: OnEvent<this>;
   on: OnEvent<this>;
@@ -564,10 +419,7 @@ export interface RiskPool extends BaseContract {
 
     availableAssets(overrides?: CallOverrides): Promise<[BigNumber]>;
 
-    balanceOf(
-      account: PromiseOrValue<string>,
-      overrides?: CallOverrides
-    ): Promise<[BigNumber]>;
+    balanceOf(account: PromiseOrValue<string>, overrides?: CallOverrides): Promise<[BigNumber]>;
 
     convertToAssets(
       shares: PromiseOrValue<BigNumberish>,
@@ -615,25 +467,13 @@ export interface RiskPool extends BaseContract {
       overrides?: Overrides & { from?: PromiseOrValue<string> }
     ): Promise<ContractTransaction>;
 
-    maxDeposit(
-      arg0: PromiseOrValue<string>,
-      overrides?: CallOverrides
-    ): Promise<[BigNumber]>;
+    maxDeposit(arg0: PromiseOrValue<string>, overrides?: CallOverrides): Promise<[BigNumber]>;
 
-    maxMint(
-      arg0: PromiseOrValue<string>,
-      overrides?: CallOverrides
-    ): Promise<[BigNumber]>;
+    maxMint(arg0: PromiseOrValue<string>, overrides?: CallOverrides): Promise<[BigNumber]>;
 
-    maxRedeem(
-      owner: PromiseOrValue<string>,
-      overrides?: CallOverrides
-    ): Promise<[BigNumber]>;
+    maxRedeem(owner: PromiseOrValue<string>, overrides?: CallOverrides): Promise<[BigNumber]>;
 
-    maxWithdraw(
-      owner: PromiseOrValue<string>,
-      overrides?: CallOverrides
-    ): Promise<[BigNumber]>;
+    maxWithdraw(owner: PromiseOrValue<string>, overrides?: CallOverrides): Promise<[BigNumber]>;
 
     mint(
       shares: PromiseOrValue<BigNumberish>,
@@ -740,10 +580,7 @@ export interface RiskPool extends BaseContract {
 
   availableAssets(overrides?: CallOverrides): Promise<BigNumber>;
 
-  balanceOf(
-    account: PromiseOrValue<string>,
-    overrides?: CallOverrides
-  ): Promise<BigNumber>;
+  balanceOf(account: PromiseOrValue<string>, overrides?: CallOverrides): Promise<BigNumber>;
 
   convertToAssets(
     shares: PromiseOrValue<BigNumberish>,
@@ -791,25 +628,13 @@ export interface RiskPool extends BaseContract {
     overrides?: Overrides & { from?: PromiseOrValue<string> }
   ): Promise<ContractTransaction>;
 
-  maxDeposit(
-    arg0: PromiseOrValue<string>,
-    overrides?: CallOverrides
-  ): Promise<BigNumber>;
+  maxDeposit(arg0: PromiseOrValue<string>, overrides?: CallOverrides): Promise<BigNumber>;
 
-  maxMint(
-    arg0: PromiseOrValue<string>,
-    overrides?: CallOverrides
-  ): Promise<BigNumber>;
+  maxMint(arg0: PromiseOrValue<string>, overrides?: CallOverrides): Promise<BigNumber>;
 
-  maxRedeem(
-    owner: PromiseOrValue<string>,
-    overrides?: CallOverrides
-  ): Promise<BigNumber>;
+  maxRedeem(owner: PromiseOrValue<string>, overrides?: CallOverrides): Promise<BigNumber>;
 
-  maxWithdraw(
-    owner: PromiseOrValue<string>,
-    overrides?: CallOverrides
-  ): Promise<BigNumber>;
+  maxWithdraw(owner: PromiseOrValue<string>, overrides?: CallOverrides): Promise<BigNumber>;
 
   mint(
     shares: PromiseOrValue<BigNumberish>,
@@ -828,10 +653,7 @@ export interface RiskPool extends BaseContract {
     overrides?: CallOverrides
   ): Promise<BigNumber>;
 
-  previewMint(
-    shares: PromiseOrValue<BigNumberish>,
-    overrides?: CallOverrides
-  ): Promise<BigNumber>;
+  previewMint(shares: PromiseOrValue<BigNumberish>, overrides?: CallOverrides): Promise<BigNumber>;
 
   previewRedeem(
     shares: PromiseOrValue<BigNumberish>,
@@ -896,10 +718,7 @@ export interface RiskPool extends BaseContract {
       overrides?: CallOverrides
     ): Promise<BigNumber>;
 
-    applyCover(
-      policyId: PromiseOrValue<BigNumberish>,
-      overrides?: CallOverrides
-    ): Promise<void>;
+    applyCover(policyId: PromiseOrValue<BigNumberish>, overrides?: CallOverrides): Promise<void>;
 
     applyCoverBatch(
       policyIds: PromiseOrValue<BigNumberish>[],
@@ -916,10 +735,7 @@ export interface RiskPool extends BaseContract {
 
     availableAssets(overrides?: CallOverrides): Promise<BigNumber>;
 
-    balanceOf(
-      account: PromiseOrValue<string>,
-      overrides?: CallOverrides
-    ): Promise<BigNumber>;
+    balanceOf(account: PromiseOrValue<string>, overrides?: CallOverrides): Promise<BigNumber>;
 
     convertToAssets(
       shares: PromiseOrValue<BigNumberish>,
@@ -967,25 +783,13 @@ export interface RiskPool extends BaseContract {
       overrides?: CallOverrides
     ): Promise<BigNumber>;
 
-    maxDeposit(
-      arg0: PromiseOrValue<string>,
-      overrides?: CallOverrides
-    ): Promise<BigNumber>;
+    maxDeposit(arg0: PromiseOrValue<string>, overrides?: CallOverrides): Promise<BigNumber>;
 
-    maxMint(
-      arg0: PromiseOrValue<string>,
-      overrides?: CallOverrides
-    ): Promise<BigNumber>;
+    maxMint(arg0: PromiseOrValue<string>, overrides?: CallOverrides): Promise<BigNumber>;
 
-    maxRedeem(
-      owner: PromiseOrValue<string>,
-      overrides?: CallOverrides
-    ): Promise<BigNumber>;
+    maxRedeem(owner: PromiseOrValue<string>, overrides?: CallOverrides): Promise<BigNumber>;
 
-    maxWithdraw(
-      owner: PromiseOrValue<string>,
-      overrides?: CallOverrides
-    ): Promise<BigNumber>;
+    maxWithdraw(owner: PromiseOrValue<string>, overrides?: CallOverrides): Promise<BigNumber>;
 
     mint(
       shares: PromiseOrValue<BigNumberish>,
@@ -1113,12 +917,8 @@ export interface RiskPool extends BaseContract {
       threshold?: null
     ): InsuredEventFilter;
 
-    "PolicyPaid(uint256)"(
-      policyId?: PromiseOrValue<BigNumberish> | null
-    ): PolicyPaidEventFilter;
-    PolicyPaid(
-      policyId?: PromiseOrValue<BigNumberish> | null
-    ): PolicyPaidEventFilter;
+    "PolicyPaid(uint256)"(policyId?: PromiseOrValue<BigNumberish> | null): PolicyPaidEventFilter;
+    PolicyPaid(policyId?: PromiseOrValue<BigNumberish> | null): PolicyPaidEventFilter;
 
     "Transfer(address,address,uint256)"(
       from?: PromiseOrValue<string> | null,
@@ -1131,10 +931,7 @@ export interface RiskPool extends BaseContract {
       value?: null
     ): TransferEventFilter;
 
-    "Unlocked(uint256,uint256)"(
-      timestamp?: null,
-      assetsUnlocked?: null
-    ): UnlockedEventFilter;
+    "Unlocked(uint256,uint256)"(timestamp?: null, assetsUnlocked?: null): UnlockedEventFilter;
     Unlocked(timestamp?: null, assetsUnlocked?: null): UnlockedEventFilter;
 
     "Withdraw(address,address,address,uint256,uint256)"(
@@ -1184,10 +981,7 @@ export interface RiskPool extends BaseContract {
 
     availableAssets(overrides?: CallOverrides): Promise<BigNumber>;
 
-    balanceOf(
-      account: PromiseOrValue<string>,
-      overrides?: CallOverrides
-    ): Promise<BigNumber>;
+    balanceOf(account: PromiseOrValue<string>, overrides?: CallOverrides): Promise<BigNumber>;
 
     convertToAssets(
       shares: PromiseOrValue<BigNumberish>,
@@ -1235,25 +1029,13 @@ export interface RiskPool extends BaseContract {
       overrides?: Overrides & { from?: PromiseOrValue<string> }
     ): Promise<BigNumber>;
 
-    maxDeposit(
-      arg0: PromiseOrValue<string>,
-      overrides?: CallOverrides
-    ): Promise<BigNumber>;
+    maxDeposit(arg0: PromiseOrValue<string>, overrides?: CallOverrides): Promise<BigNumber>;
 
-    maxMint(
-      arg0: PromiseOrValue<string>,
-      overrides?: CallOverrides
-    ): Promise<BigNumber>;
+    maxMint(arg0: PromiseOrValue<string>, overrides?: CallOverrides): Promise<BigNumber>;
 
-    maxRedeem(
-      owner: PromiseOrValue<string>,
-      overrides?: CallOverrides
-    ): Promise<BigNumber>;
+    maxRedeem(owner: PromiseOrValue<string>, overrides?: CallOverrides): Promise<BigNumber>;
 
-    maxWithdraw(
-      owner: PromiseOrValue<string>,
-      overrides?: CallOverrides
-    ): Promise<BigNumber>;
+    maxWithdraw(owner: PromiseOrValue<string>, overrides?: CallOverrides): Promise<BigNumber>;
 
     mint(
       shares: PromiseOrValue<BigNumberish>,
@@ -1417,10 +1199,7 @@ export interface RiskPool extends BaseContract {
       overrides?: CallOverrides
     ): Promise<PopulatedTransaction>;
 
-    maxMint(
-      arg0: PromiseOrValue<string>,
-      overrides?: CallOverrides
-    ): Promise<PopulatedTransaction>;
+    maxMint(arg0: PromiseOrValue<string>, overrides?: CallOverrides): Promise<PopulatedTransaction>;
 
     maxRedeem(
       owner: PromiseOrValue<string>,
@@ -1440,9 +1219,7 @@ export interface RiskPool extends BaseContract {
 
     name(overrides?: CallOverrides): Promise<PopulatedTransaction>;
 
-    parametersProvider(
-      overrides?: CallOverrides
-    ): Promise<PopulatedTransaction>;
+    parametersProvider(overrides?: CallOverrides): Promise<PopulatedTransaction>;
 
     premiumEngine(overrides?: CallOverrides): Promise<PopulatedTransaction>;
 

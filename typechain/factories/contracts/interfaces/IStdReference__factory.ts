@@ -99,10 +99,7 @@ export class IStdReference__factory {
   static createInterface(): IStdReferenceInterface {
     return new utils.Interface(_abi) as IStdReferenceInterface;
   }
-  static connect(
-    address: string,
-    signerOrProvider: Signer | Provider
-  ): IStdReference {
+  static connect(address: string, signerOrProvider: Signer | Provider): IStdReference {
     return new Contract(address, _abi, signerOrProvider) as IStdReference;
   }
 }

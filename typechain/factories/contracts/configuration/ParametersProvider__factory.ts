@@ -125,10 +125,7 @@ export class ParametersProvider__factory extends ContractFactory {
   static createInterface(): ParametersProviderInterface {
     return new utils.Interface(_abi) as ParametersProviderInterface;
   }
-  static connect(
-    address: string,
-    signerOrProvider: Signer | Provider
-  ): ParametersProvider {
+  static connect(address: string, signerOrProvider: Signer | Provider): ParametersProvider {
     return new Contract(address, _abi, signerOrProvider) as ParametersProvider;
   }
 }

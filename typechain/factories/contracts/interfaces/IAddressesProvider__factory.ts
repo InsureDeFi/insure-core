@@ -394,10 +394,7 @@ export class IAddressesProvider__factory {
   static createInterface(): IAddressesProviderInterface {
     return new utils.Interface(_abi) as IAddressesProviderInterface;
   }
-  static connect(
-    address: string,
-    signerOrProvider: Signer | Provider
-  ): IAddressesProvider {
+  static connect(address: string, signerOrProvider: Signer | Provider): IAddressesProvider {
     return new Contract(address, _abi, signerOrProvider) as IAddressesProvider;
   }
 }

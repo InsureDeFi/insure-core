@@ -13,11 +13,7 @@ import type {
   Signer,
   utils,
 } from "ethers";
-import type {
-  FunctionFragment,
-  Result,
-  EventFragment,
-} from "@ethersproject/abi";
+import type { FunctionFragment, Result, EventFragment } from "@ethersproject/abi";
 import type { Listener, Provider } from "@ethersproject/providers";
 import type {
   TypedEventFilter,
@@ -87,51 +83,21 @@ export interface AddressesProviderInterface extends utils.Interface {
     functionFragment: "changeProxyAdmin",
     values: [PromiseOrValue<string>, PromiseOrValue<string>]
   ): string;
-  encodeFunctionData(
-    functionFragment: "getAddress",
-    values: [PromiseOrValue<BytesLike>]
-  ): string;
-  encodeFunctionData(
-    functionFragment: "getFeeDistributor",
-    values?: undefined
-  ): string;
-  encodeFunctionData(
-    functionFragment: "getParametersProvider",
-    values?: undefined
-  ): string;
-  encodeFunctionData(
-    functionFragment: "getPremiumEngine",
-    values?: undefined
-  ): string;
-  encodeFunctionData(
-    functionFragment: "getPriceOracle",
-    values?: undefined
-  ): string;
-  encodeFunctionData(
-    functionFragment: "getProxyAdmin",
-    values: [PromiseOrValue<string>]
-  ): string;
+  encodeFunctionData(functionFragment: "getAddress", values: [PromiseOrValue<BytesLike>]): string;
+  encodeFunctionData(functionFragment: "getFeeDistributor", values?: undefined): string;
+  encodeFunctionData(functionFragment: "getParametersProvider", values?: undefined): string;
+  encodeFunctionData(functionFragment: "getPremiumEngine", values?: undefined): string;
+  encodeFunctionData(functionFragment: "getPriceOracle", values?: undefined): string;
+  encodeFunctionData(functionFragment: "getProxyAdmin", values: [PromiseOrValue<string>]): string;
   encodeFunctionData(
     functionFragment: "getProxyImplementation",
     values: [PromiseOrValue<string>]
   ): string;
-  encodeFunctionData(
-    functionFragment: "getRiskPool",
-    values?: undefined
-  ): string;
-  encodeFunctionData(
-    functionFragment: "getRiskPoolCore",
-    values?: undefined
-  ): string;
-  encodeFunctionData(
-    functionFragment: "getRiskPoolManager",
-    values?: undefined
-  ): string;
+  encodeFunctionData(functionFragment: "getRiskPool", values?: undefined): string;
+  encodeFunctionData(functionFragment: "getRiskPoolCore", values?: undefined): string;
+  encodeFunctionData(functionFragment: "getRiskPoolManager", values?: undefined): string;
   encodeFunctionData(functionFragment: "owner", values?: undefined): string;
-  encodeFunctionData(
-    functionFragment: "renounceOwnership",
-    values?: undefined
-  ): string;
+  encodeFunctionData(functionFragment: "renounceOwnership", values?: undefined): string;
   encodeFunctionData(
     functionFragment: "setAddress",
     values: [PromiseOrValue<BytesLike>, PromiseOrValue<string>]
@@ -148,18 +114,9 @@ export interface AddressesProviderInterface extends utils.Interface {
     functionFragment: "setPremiumEngine",
     values: [PromiseOrValue<string>]
   ): string;
-  encodeFunctionData(
-    functionFragment: "setPriceOracle",
-    values: [PromiseOrValue<string>]
-  ): string;
-  encodeFunctionData(
-    functionFragment: "setRiskPool",
-    values: [PromiseOrValue<string>]
-  ): string;
-  encodeFunctionData(
-    functionFragment: "setRiskPoolCore",
-    values: [PromiseOrValue<string>]
-  ): string;
+  encodeFunctionData(functionFragment: "setPriceOracle", values: [PromiseOrValue<string>]): string;
+  encodeFunctionData(functionFragment: "setRiskPool", values: [PromiseOrValue<string>]): string;
+  encodeFunctionData(functionFragment: "setRiskPoolCore", values: [PromiseOrValue<string>]): string;
   encodeFunctionData(
     functionFragment: "setRiskPoolManager",
     values: [PromiseOrValue<string>]
@@ -174,97 +131,33 @@ export interface AddressesProviderInterface extends utils.Interface {
   ): string;
   encodeFunctionData(
     functionFragment: "upgradeAndCall",
-    values: [
-      PromiseOrValue<string>,
-      PromiseOrValue<string>,
-      PromiseOrValue<BytesLike>
-    ]
+    values: [PromiseOrValue<string>, PromiseOrValue<string>, PromiseOrValue<BytesLike>]
   ): string;
 
-  decodeFunctionResult(
-    functionFragment: "changeProxyAdmin",
-    data: BytesLike
-  ): Result;
+  decodeFunctionResult(functionFragment: "changeProxyAdmin", data: BytesLike): Result;
   decodeFunctionResult(functionFragment: "getAddress", data: BytesLike): Result;
-  decodeFunctionResult(
-    functionFragment: "getFeeDistributor",
-    data: BytesLike
-  ): Result;
-  decodeFunctionResult(
-    functionFragment: "getParametersProvider",
-    data: BytesLike
-  ): Result;
-  decodeFunctionResult(
-    functionFragment: "getPremiumEngine",
-    data: BytesLike
-  ): Result;
-  decodeFunctionResult(
-    functionFragment: "getPriceOracle",
-    data: BytesLike
-  ): Result;
-  decodeFunctionResult(
-    functionFragment: "getProxyAdmin",
-    data: BytesLike
-  ): Result;
-  decodeFunctionResult(
-    functionFragment: "getProxyImplementation",
-    data: BytesLike
-  ): Result;
-  decodeFunctionResult(
-    functionFragment: "getRiskPool",
-    data: BytesLike
-  ): Result;
-  decodeFunctionResult(
-    functionFragment: "getRiskPoolCore",
-    data: BytesLike
-  ): Result;
-  decodeFunctionResult(
-    functionFragment: "getRiskPoolManager",
-    data: BytesLike
-  ): Result;
+  decodeFunctionResult(functionFragment: "getFeeDistributor", data: BytesLike): Result;
+  decodeFunctionResult(functionFragment: "getParametersProvider", data: BytesLike): Result;
+  decodeFunctionResult(functionFragment: "getPremiumEngine", data: BytesLike): Result;
+  decodeFunctionResult(functionFragment: "getPriceOracle", data: BytesLike): Result;
+  decodeFunctionResult(functionFragment: "getProxyAdmin", data: BytesLike): Result;
+  decodeFunctionResult(functionFragment: "getProxyImplementation", data: BytesLike): Result;
+  decodeFunctionResult(functionFragment: "getRiskPool", data: BytesLike): Result;
+  decodeFunctionResult(functionFragment: "getRiskPoolCore", data: BytesLike): Result;
+  decodeFunctionResult(functionFragment: "getRiskPoolManager", data: BytesLike): Result;
   decodeFunctionResult(functionFragment: "owner", data: BytesLike): Result;
-  decodeFunctionResult(
-    functionFragment: "renounceOwnership",
-    data: BytesLike
-  ): Result;
+  decodeFunctionResult(functionFragment: "renounceOwnership", data: BytesLike): Result;
   decodeFunctionResult(functionFragment: "setAddress", data: BytesLike): Result;
-  decodeFunctionResult(
-    functionFragment: "setFeeDistributor",
-    data: BytesLike
-  ): Result;
-  decodeFunctionResult(
-    functionFragment: "setParametersProvider",
-    data: BytesLike
-  ): Result;
-  decodeFunctionResult(
-    functionFragment: "setPremiumEngine",
-    data: BytesLike
-  ): Result;
-  decodeFunctionResult(
-    functionFragment: "setPriceOracle",
-    data: BytesLike
-  ): Result;
-  decodeFunctionResult(
-    functionFragment: "setRiskPool",
-    data: BytesLike
-  ): Result;
-  decodeFunctionResult(
-    functionFragment: "setRiskPoolCore",
-    data: BytesLike
-  ): Result;
-  decodeFunctionResult(
-    functionFragment: "setRiskPoolManager",
-    data: BytesLike
-  ): Result;
-  decodeFunctionResult(
-    functionFragment: "transferOwnership",
-    data: BytesLike
-  ): Result;
+  decodeFunctionResult(functionFragment: "setFeeDistributor", data: BytesLike): Result;
+  decodeFunctionResult(functionFragment: "setParametersProvider", data: BytesLike): Result;
+  decodeFunctionResult(functionFragment: "setPremiumEngine", data: BytesLike): Result;
+  decodeFunctionResult(functionFragment: "setPriceOracle", data: BytesLike): Result;
+  decodeFunctionResult(functionFragment: "setRiskPool", data: BytesLike): Result;
+  decodeFunctionResult(functionFragment: "setRiskPoolCore", data: BytesLike): Result;
+  decodeFunctionResult(functionFragment: "setRiskPoolManager", data: BytesLike): Result;
+  decodeFunctionResult(functionFragment: "transferOwnership", data: BytesLike): Result;
   decodeFunctionResult(functionFragment: "upgrade", data: BytesLike): Result;
-  decodeFunctionResult(
-    functionFragment: "upgradeAndCall",
-    data: BytesLike
-  ): Result;
+  decodeFunctionResult(functionFragment: "upgradeAndCall", data: BytesLike): Result;
 
   events: {
     "AddressSet(bytes32,address,address)": EventFragment;
@@ -294,10 +187,7 @@ export interface AddressSetEventObject {
   oldAddress: string;
   newAddress: string;
 }
-export type AddressSetEvent = TypedEvent<
-  [string, string, string],
-  AddressSetEventObject
->;
+export type AddressSetEvent = TypedEvent<[string, string, string], AddressSetEventObject>;
 
 export type AddressSetEventFilter = TypedEventFilter<AddressSetEvent>;
 
@@ -310,8 +200,7 @@ export type FeeDistributorUpdatedEvent = TypedEvent<
   FeeDistributorUpdatedEventObject
 >;
 
-export type FeeDistributorUpdatedEventFilter =
-  TypedEventFilter<FeeDistributorUpdatedEvent>;
+export type FeeDistributorUpdatedEventFilter = TypedEventFilter<FeeDistributorUpdatedEvent>;
 
 export interface OwnershipTransferredEventObject {
   previousOwner: string;
@@ -322,8 +211,7 @@ export type OwnershipTransferredEvent = TypedEvent<
   OwnershipTransferredEventObject
 >;
 
-export type OwnershipTransferredEventFilter =
-  TypedEventFilter<OwnershipTransferredEvent>;
+export type OwnershipTransferredEventFilter = TypedEventFilter<OwnershipTransferredEvent>;
 
 export interface ParametersProviderUpdatedEventObject {
   oldAddress: string;
@@ -334,8 +222,7 @@ export type ParametersProviderUpdatedEvent = TypedEvent<
   ParametersProviderUpdatedEventObject
 >;
 
-export type ParametersProviderUpdatedEventFilter =
-  TypedEventFilter<ParametersProviderUpdatedEvent>;
+export type ParametersProviderUpdatedEventFilter = TypedEventFilter<ParametersProviderUpdatedEvent>;
 
 export interface PremiumEngineUpdatedEventObject {
   oldAddress: string;
@@ -346,32 +233,23 @@ export type PremiumEngineUpdatedEvent = TypedEvent<
   PremiumEngineUpdatedEventObject
 >;
 
-export type PremiumEngineUpdatedEventFilter =
-  TypedEventFilter<PremiumEngineUpdatedEvent>;
+export type PremiumEngineUpdatedEventFilter = TypedEventFilter<PremiumEngineUpdatedEvent>;
 
 export interface PriceOracleUpdatedEventObject {
   oldAddress: string;
   newAddress: string;
 }
-export type PriceOracleUpdatedEvent = TypedEvent<
-  [string, string],
-  PriceOracleUpdatedEventObject
->;
+export type PriceOracleUpdatedEvent = TypedEvent<[string, string], PriceOracleUpdatedEventObject>;
 
-export type PriceOracleUpdatedEventFilter =
-  TypedEventFilter<PriceOracleUpdatedEvent>;
+export type PriceOracleUpdatedEventFilter = TypedEventFilter<PriceOracleUpdatedEvent>;
 
 export interface RiskPoolCoreUpdatedEventObject {
   oldAddress: string;
   newAddress: string;
 }
-export type RiskPoolCoreUpdatedEvent = TypedEvent<
-  [string, string],
-  RiskPoolCoreUpdatedEventObject
->;
+export type RiskPoolCoreUpdatedEvent = TypedEvent<[string, string], RiskPoolCoreUpdatedEventObject>;
 
-export type RiskPoolCoreUpdatedEventFilter =
-  TypedEventFilter<RiskPoolCoreUpdatedEvent>;
+export type RiskPoolCoreUpdatedEventFilter = TypedEventFilter<RiskPoolCoreUpdatedEvent>;
 
 export interface RiskPoolManagerUpdatedEventObject {
   oldAddress: string;
@@ -382,17 +260,13 @@ export type RiskPoolManagerUpdatedEvent = TypedEvent<
   RiskPoolManagerUpdatedEventObject
 >;
 
-export type RiskPoolManagerUpdatedEventFilter =
-  TypedEventFilter<RiskPoolManagerUpdatedEvent>;
+export type RiskPoolManagerUpdatedEventFilter = TypedEventFilter<RiskPoolManagerUpdatedEvent>;
 
 export interface RiskPoolUpdatedEventObject {
   oldAddress: string;
   newAddress: string;
 }
-export type RiskPoolUpdatedEvent = TypedEvent<
-  [string, string],
-  RiskPoolUpdatedEventObject
->;
+export type RiskPoolUpdatedEvent = TypedEvent<[string, string], RiskPoolUpdatedEventObject>;
 
 export type RiskPoolUpdatedEventFilter = TypedEventFilter<RiskPoolUpdatedEvent>;
 
@@ -413,9 +287,7 @@ export interface AddressesProvider extends BaseContract {
     eventFilter?: TypedEventFilter<TEvent>
   ): Array<TypedListener<TEvent>>;
   listeners(eventName?: string): Array<Listener>;
-  removeAllListeners<TEvent extends TypedEvent>(
-    eventFilter: TypedEventFilter<TEvent>
-  ): this;
+  removeAllListeners<TEvent extends TypedEvent>(eventFilter: TypedEventFilter<TEvent>): this;
   removeAllListeners(eventName?: string): this;
   off: OnEvent<this>;
   on: OnEvent<this>;
@@ -429,10 +301,7 @@ export interface AddressesProvider extends BaseContract {
       overrides?: Overrides & { from?: PromiseOrValue<string> }
     ): Promise<ContractTransaction>;
 
-    getAddress(
-      key: PromiseOrValue<BytesLike>,
-      overrides?: CallOverrides
-    ): Promise<[string]>;
+    getAddress(key: PromiseOrValue<BytesLike>, overrides?: CallOverrides): Promise<[string]>;
 
     getFeeDistributor(overrides?: CallOverrides): Promise<[string]>;
 
@@ -442,10 +311,7 @@ export interface AddressesProvider extends BaseContract {
 
     getPriceOracle(overrides?: CallOverrides): Promise<[string]>;
 
-    getProxyAdmin(
-      proxy: PromiseOrValue<string>,
-      overrides?: CallOverrides
-    ): Promise<[string]>;
+    getProxyAdmin(proxy: PromiseOrValue<string>, overrides?: CallOverrides): Promise<[string]>;
 
     getProxyImplementation(
       proxy: PromiseOrValue<string>,
@@ -530,10 +396,7 @@ export interface AddressesProvider extends BaseContract {
     overrides?: Overrides & { from?: PromiseOrValue<string> }
   ): Promise<ContractTransaction>;
 
-  getAddress(
-    key: PromiseOrValue<BytesLike>,
-    overrides?: CallOverrides
-  ): Promise<string>;
+  getAddress(key: PromiseOrValue<BytesLike>, overrides?: CallOverrides): Promise<string>;
 
   getFeeDistributor(overrides?: CallOverrides): Promise<string>;
 
@@ -543,15 +406,9 @@ export interface AddressesProvider extends BaseContract {
 
   getPriceOracle(overrides?: CallOverrides): Promise<string>;
 
-  getProxyAdmin(
-    proxy: PromiseOrValue<string>,
-    overrides?: CallOverrides
-  ): Promise<string>;
+  getProxyAdmin(proxy: PromiseOrValue<string>, overrides?: CallOverrides): Promise<string>;
 
-  getProxyImplementation(
-    proxy: PromiseOrValue<string>,
-    overrides?: CallOverrides
-  ): Promise<string>;
+  getProxyImplementation(proxy: PromiseOrValue<string>, overrides?: CallOverrides): Promise<string>;
 
   getRiskPool(overrides?: CallOverrides): Promise<string>;
 
@@ -631,10 +488,7 @@ export interface AddressesProvider extends BaseContract {
       overrides?: CallOverrides
     ): Promise<void>;
 
-    getAddress(
-      key: PromiseOrValue<BytesLike>,
-      overrides?: CallOverrides
-    ): Promise<string>;
+    getAddress(key: PromiseOrValue<BytesLike>, overrides?: CallOverrides): Promise<string>;
 
     getFeeDistributor(overrides?: CallOverrides): Promise<string>;
 
@@ -644,10 +498,7 @@ export interface AddressesProvider extends BaseContract {
 
     getPriceOracle(overrides?: CallOverrides): Promise<string>;
 
-    getProxyAdmin(
-      proxy: PromiseOrValue<string>,
-      overrides?: CallOverrides
-    ): Promise<string>;
+    getProxyAdmin(proxy: PromiseOrValue<string>, overrides?: CallOverrides): Promise<string>;
 
     getProxyImplementation(
       proxy: PromiseOrValue<string>,
@@ -690,10 +541,7 @@ export interface AddressesProvider extends BaseContract {
       overrides?: CallOverrides
     ): Promise<void>;
 
-    setRiskPool(
-      newRiskPool: PromiseOrValue<string>,
-      overrides?: CallOverrides
-    ): Promise<void>;
+    setRiskPool(newRiskPool: PromiseOrValue<string>, overrides?: CallOverrides): Promise<void>;
 
     setRiskPoolCore(
       newRiskPoolCore: PromiseOrValue<string>,
@@ -705,10 +553,7 @@ export interface AddressesProvider extends BaseContract {
       overrides?: CallOverrides
     ): Promise<void>;
 
-    transferOwnership(
-      newOwner: PromiseOrValue<string>,
-      overrides?: CallOverrides
-    ): Promise<void>;
+    transferOwnership(newOwner: PromiseOrValue<string>, overrides?: CallOverrides): Promise<void>;
 
     upgrade(
       proxy: PromiseOrValue<string>,
@@ -816,10 +661,7 @@ export interface AddressesProvider extends BaseContract {
       overrides?: Overrides & { from?: PromiseOrValue<string> }
     ): Promise<BigNumber>;
 
-    getAddress(
-      key: PromiseOrValue<BytesLike>,
-      overrides?: CallOverrides
-    ): Promise<BigNumber>;
+    getAddress(key: PromiseOrValue<BytesLike>, overrides?: CallOverrides): Promise<BigNumber>;
 
     getFeeDistributor(overrides?: CallOverrides): Promise<BigNumber>;
 
@@ -829,10 +671,7 @@ export interface AddressesProvider extends BaseContract {
 
     getPriceOracle(overrides?: CallOverrides): Promise<BigNumber>;
 
-    getProxyAdmin(
-      proxy: PromiseOrValue<string>,
-      overrides?: CallOverrides
-    ): Promise<BigNumber>;
+    getProxyAdmin(proxy: PromiseOrValue<string>, overrides?: CallOverrides): Promise<BigNumber>;
 
     getProxyImplementation(
       proxy: PromiseOrValue<string>,
@@ -925,9 +764,7 @@ export interface AddressesProvider extends BaseContract {
 
     getFeeDistributor(overrides?: CallOverrides): Promise<PopulatedTransaction>;
 
-    getParametersProvider(
-      overrides?: CallOverrides
-    ): Promise<PopulatedTransaction>;
+    getParametersProvider(overrides?: CallOverrides): Promise<PopulatedTransaction>;
 
     getPremiumEngine(overrides?: CallOverrides): Promise<PopulatedTransaction>;
 
@@ -947,9 +784,7 @@ export interface AddressesProvider extends BaseContract {
 
     getRiskPoolCore(overrides?: CallOverrides): Promise<PopulatedTransaction>;
 
-    getRiskPoolManager(
-      overrides?: CallOverrides
-    ): Promise<PopulatedTransaction>;
+    getRiskPoolManager(overrides?: CallOverrides): Promise<PopulatedTransaction>;
 
     owner(overrides?: CallOverrides): Promise<PopulatedTransaction>;
 

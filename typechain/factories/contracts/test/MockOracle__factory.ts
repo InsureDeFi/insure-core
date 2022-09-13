@@ -4,10 +4,7 @@
 import { Signer, utils, Contract, ContractFactory, Overrides } from "ethers";
 import type { Provider, TransactionRequest } from "@ethersproject/providers";
 import type { PromiseOrValue } from "../../../common";
-import type {
-  MockOracle,
-  MockOracleInterface,
-} from "../../../contracts/test/MockOracle";
+import type { MockOracle, MockOracleInterface } from "../../../contracts/test/MockOracle";
 
 const _abi = [
   {
@@ -119,9 +116,7 @@ export class MockOracle__factory extends ContractFactory {
     }
   }
 
-  override deploy(
-    overrides?: Overrides & { from?: PromiseOrValue<string> }
-  ): Promise<MockOracle> {
+  override deploy(overrides?: Overrides & { from?: PromiseOrValue<string> }): Promise<MockOracle> {
     return super.deploy(overrides || {}) as Promise<MockOracle>;
   }
   override getDeployTransaction(
@@ -141,10 +136,7 @@ export class MockOracle__factory extends ContractFactory {
   static createInterface(): MockOracleInterface {
     return new utils.Interface(_abi) as MockOracleInterface;
   }
-  static connect(
-    address: string,
-    signerOrProvider: Signer | Provider
-  ): MockOracle {
+  static connect(address: string, signerOrProvider: Signer | Provider): MockOracle {
     return new Contract(address, _abi, signerOrProvider) as MockOracle;
   }
 }

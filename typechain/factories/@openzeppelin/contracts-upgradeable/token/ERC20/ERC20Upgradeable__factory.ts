@@ -337,10 +337,7 @@ export class ERC20Upgradeable__factory extends ContractFactory {
   static createInterface(): ERC20UpgradeableInterface {
     return new utils.Interface(_abi) as ERC20UpgradeableInterface;
   }
-  static connect(
-    address: string,
-    signerOrProvider: Signer | Provider
-  ): ERC20Upgradeable {
+  static connect(address: string, signerOrProvider: Signer | Provider): ERC20Upgradeable {
     return new Contract(address, _abi, signerOrProvider) as ERC20Upgradeable;
   }
 }

@@ -30,10 +30,7 @@ export class ContextUpgradeable__factory {
   static createInterface(): ContextUpgradeableInterface {
     return new utils.Interface(_abi) as ContextUpgradeableInterface;
   }
-  static connect(
-    address: string,
-    signerOrProvider: Signer | Provider
-  ): ContextUpgradeable {
+  static connect(address: string, signerOrProvider: Signer | Provider): ContextUpgradeable {
     return new Contract(address, _abi, signerOrProvider) as ContextUpgradeable;
   }
 }

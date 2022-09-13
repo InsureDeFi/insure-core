@@ -31,20 +31,12 @@ export interface PremiumEngineInterface extends utils.Interface {
   };
 
   getFunction(
-    nameOrSignatureOrTopic:
-      | "A"
-      | "K"
-      | "PREMIUM_ENGINE_REVISION"
-      | "getPremium"
-      | "getPremiumRate"
+    nameOrSignatureOrTopic: "A" | "K" | "PREMIUM_ENGINE_REVISION" | "getPremium" | "getPremiumRate"
   ): FunctionFragment;
 
   encodeFunctionData(functionFragment: "A", values?: undefined): string;
   encodeFunctionData(functionFragment: "K", values?: undefined): string;
-  encodeFunctionData(
-    functionFragment: "PREMIUM_ENGINE_REVISION",
-    values?: undefined
-  ): string;
+  encodeFunctionData(functionFragment: "PREMIUM_ENGINE_REVISION", values?: undefined): string;
   encodeFunctionData(
     functionFragment: "getPremium",
     values: [
@@ -65,15 +57,9 @@ export interface PremiumEngineInterface extends utils.Interface {
 
   decodeFunctionResult(functionFragment: "A", data: BytesLike): Result;
   decodeFunctionResult(functionFragment: "K", data: BytesLike): Result;
-  decodeFunctionResult(
-    functionFragment: "PREMIUM_ENGINE_REVISION",
-    data: BytesLike
-  ): Result;
+  decodeFunctionResult(functionFragment: "PREMIUM_ENGINE_REVISION", data: BytesLike): Result;
   decodeFunctionResult(functionFragment: "getPremium", data: BytesLike): Result;
-  decodeFunctionResult(
-    functionFragment: "getPremiumRate",
-    data: BytesLike
-  ): Result;
+  decodeFunctionResult(functionFragment: "getPremiumRate", data: BytesLike): Result;
 
   events: {};
 }
@@ -95,9 +81,7 @@ export interface PremiumEngine extends BaseContract {
     eventFilter?: TypedEventFilter<TEvent>
   ): Array<TypedListener<TEvent>>;
   listeners(eventName?: string): Array<Listener>;
-  removeAllListeners<TEvent extends TypedEvent>(
-    eventFilter: TypedEventFilter<TEvent>
-  ): this;
+  removeAllListeners<TEvent extends TypedEvent>(eventFilter: TypedEventFilter<TEvent>): this;
   removeAllListeners(eventName?: string): this;
   off: OnEvent<this>;
   on: OnEvent<this>;
@@ -201,9 +185,7 @@ export interface PremiumEngine extends BaseContract {
 
     K(overrides?: CallOverrides): Promise<PopulatedTransaction>;
 
-    PREMIUM_ENGINE_REVISION(
-      overrides?: CallOverrides
-    ): Promise<PopulatedTransaction>;
+    PREMIUM_ENGINE_REVISION(overrides?: CallOverrides): Promise<PopulatedTransaction>;
 
     getPremium(
       coverAmount: PromiseOrValue<BigNumberish>,

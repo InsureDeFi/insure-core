@@ -690,10 +690,7 @@ export class ERC4626Upgradeable__factory {
   static createInterface(): ERC4626UpgradeableInterface {
     return new utils.Interface(_abi) as ERC4626UpgradeableInterface;
   }
-  static connect(
-    address: string,
-    signerOrProvider: Signer | Provider
-  ): ERC4626Upgradeable {
+  static connect(address: string, signerOrProvider: Signer | Provider): ERC4626Upgradeable {
     return new Contract(address, _abi, signerOrProvider) as ERC4626Upgradeable;
   }
 }
