@@ -25,11 +25,6 @@ interface IAddressesProvider {
   /// @param newAddress The new address of the ParametersProvider
   event ParametersProviderUpdated(address indexed oldAddress, address indexed newAddress);
 
-  /// @dev Emitted when risk pool manager is updated.
-  /// @param oldAddress The old address of the RiskPoolManager
-  /// @param newAddress The new address of the RiskPoolManager
-  event RiskPoolManagerUpdated(address indexed oldAddress, address indexed newAddress);
-
   /// @dev Emitted when price oracle is updated.
   /// @param oldAddress The old address of the PriceOracle
   /// @param newAddress The new address of the PriceOracle
@@ -90,14 +85,6 @@ interface IAddressesProvider {
   /// @notice Updates the address of parameters provider.
   /// @param newParametersProvider The address of the new ParametersProvider
   function setParametersProvider(address newParametersProvider) external;
-
-  /// @notice Returns the address of risk pool manager.
-  /// @return The RiskPoolManager address
-  function getRiskPoolManager() external view returns (address);
-
-  /// @notice Updates the address of risk pool manager.
-  /// @param newRiskPoolManager The address of the new RiskPoolManager
-  function setRiskPoolManager(address newRiskPoolManager) external;
 
   /// @notice Returns the address of price oracle.
   /// @return The PriceOracle address

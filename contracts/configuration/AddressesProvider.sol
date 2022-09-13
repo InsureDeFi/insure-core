@@ -17,7 +17,6 @@ contract AddressesProvider is ProxyAdmin, IAddressesProvider {
   bytes32 private constant RISK_POOL = "RISK_POOL";
   bytes32 private constant PREMIUM_ENGINE = "PREMIUM_ENGINE";
   bytes32 private constant PARAMETERS_PROVIDER = "PARAMETERS_PROVIDER";
-  bytes32 private constant RISK_POOL_MANAGER = "RISK_POOL_MANAGER";
   bytes32 private constant PRICE_ORACLE = "PRICE_ORACLE";
   bytes32 private constant FEE_DISTRIBUTOR = "FEE_DISTRIBUTOR";
 
@@ -79,18 +78,6 @@ contract AddressesProvider is ProxyAdmin, IAddressesProvider {
     address oldParametersProvider = _addresses[PARAMETERS_PROVIDER];
     _addresses[PARAMETERS_PROVIDER] = newParametersProvider;
     emit ParametersProviderUpdated(oldParametersProvider, newParametersProvider);
-  }
-
-  /// @inheritdoc IAddressesProvider
-  function getRiskPoolManager() external view returns (address) {
-    return getAddress(RISK_POOL_MANAGER);
-  }
-
-  /// @inheritdoc IAddressesProvider
-  function setRiskPoolManager(address newRiskPoolManager) external onlyOwner {
-    address oldRiskPoolManager = _addresses[RISK_POOL_MANAGER];
-    _addresses[RISK_POOL_MANAGER] = newRiskPoolManager;
-    emit RiskPoolManagerUpdated(oldRiskPoolManager, newRiskPoolManager);
   }
 
   /// @inheritdoc IAddressesProvider

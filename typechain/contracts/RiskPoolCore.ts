@@ -68,6 +68,7 @@ export interface RiskPoolCoreInterface extends utils.Interface {
     "CORE_REVISION()": FunctionFragment;
     "addressesProvider()": FunctionFragment;
     "assetIds(string)": FunctionFragment;
+    "expiredPolicyFunds(uint256)": FunctionFragment;
     "getAssets()": FunctionFragment;
     "getPolicy(uint256)": FunctionFragment;
     "initAsset(string)": FunctionFragment;
@@ -86,6 +87,7 @@ export interface RiskPoolCoreInterface extends utils.Interface {
       | "CORE_REVISION"
       | "addressesProvider"
       | "assetIds"
+      | "expiredPolicyFunds"
       | "getAssets"
       | "getPolicy"
       | "initAsset"
@@ -110,6 +112,10 @@ export interface RiskPoolCoreInterface extends utils.Interface {
   encodeFunctionData(
     functionFragment: "assetIds",
     values: [PromiseOrValue<string>]
+  ): string;
+  encodeFunctionData(
+    functionFragment: "expiredPolicyFunds",
+    values: [PromiseOrValue<BigNumberish>]
   ): string;
   encodeFunctionData(functionFragment: "getAssets", values?: undefined): string;
   encodeFunctionData(
@@ -164,6 +170,10 @@ export interface RiskPoolCoreInterface extends utils.Interface {
     data: BytesLike
   ): Result;
   decodeFunctionResult(functionFragment: "assetIds", data: BytesLike): Result;
+  decodeFunctionResult(
+    functionFragment: "expiredPolicyFunds",
+    data: BytesLike
+  ): Result;
   decodeFunctionResult(functionFragment: "getAssets", data: BytesLike): Result;
   decodeFunctionResult(functionFragment: "getPolicy", data: BytesLike): Result;
   decodeFunctionResult(functionFragment: "initAsset", data: BytesLike): Result;
@@ -255,6 +265,11 @@ export interface RiskPoolCore extends BaseContract {
       overrides?: CallOverrides
     ): Promise<[BigNumber]>;
 
+    expiredPolicyFunds(
+      arg0: PromiseOrValue<BigNumberish>,
+      overrides?: CallOverrides
+    ): Promise<[BigNumber]>;
+
     getAssets(overrides?: CallOverrides): Promise<[string[]]>;
 
     getPolicy(
@@ -311,6 +326,11 @@ export interface RiskPoolCore extends BaseContract {
     overrides?: CallOverrides
   ): Promise<BigNumber>;
 
+  expiredPolicyFunds(
+    arg0: PromiseOrValue<BigNumberish>,
+    overrides?: CallOverrides
+  ): Promise<BigNumber>;
+
   getAssets(overrides?: CallOverrides): Promise<string[]>;
 
   getPolicy(
@@ -364,6 +384,11 @@ export interface RiskPoolCore extends BaseContract {
 
     assetIds(
       arg0: PromiseOrValue<string>,
+      overrides?: CallOverrides
+    ): Promise<BigNumber>;
+
+    expiredPolicyFunds(
+      arg0: PromiseOrValue<BigNumberish>,
       overrides?: CallOverrides
     ): Promise<BigNumber>;
 
@@ -440,6 +465,11 @@ export interface RiskPoolCore extends BaseContract {
       overrides?: CallOverrides
     ): Promise<BigNumber>;
 
+    expiredPolicyFunds(
+      arg0: PromiseOrValue<BigNumberish>,
+      overrides?: CallOverrides
+    ): Promise<BigNumber>;
+
     getAssets(overrides?: CallOverrides): Promise<BigNumber>;
 
     getPolicy(
@@ -494,6 +524,11 @@ export interface RiskPoolCore extends BaseContract {
 
     assetIds(
       arg0: PromiseOrValue<string>,
+      overrides?: CallOverrides
+    ): Promise<PopulatedTransaction>;
+
+    expiredPolicyFunds(
+      arg0: PromiseOrValue<BigNumberish>,
       overrides?: CallOverrides
     ): Promise<PopulatedTransaction>;
 

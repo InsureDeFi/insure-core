@@ -6,7 +6,8 @@ import {AddressesProvider} from "./configuration/AddressesProvider.sol";
 import {BokkyPooBahsDateTimeLibrary} from "./lib/BokkyPooBahsDateTimeLibrary.sol";
 import {CoreLibrary} from "./lib/CoreLibrary.sol";
 
-error RiskPoolCore__NotPoolManager();
+error RiskPoolCore__NotOwner();
+error RiskPoolCore__NotRiskPool();
 error RiskPoolCore__AssetAlreadyInitialized();
 error RiskPoolCore__UnlockBeforeExpiry();
 
@@ -38,16 +39,9 @@ contract RiskPoolCore is Initializable {
     isActive = true;
   }
 
-  modifier onlyPoolManager() {
-    if (msg.sender != addressesProvider.getRiskPoolManager()) {
-      revert RiskPoolCore__NotPoolManager();
-    }
-    _;
-  }
-
   modifier onlyRiskPool() {
     if (msg.sender != addressesProvider.getRiskPool()) {
-      revert RiskPoolCore__NotPoolManager();
+      revert RiskPoolCore__NotRiskPool();
     }
     _;
   }
@@ -127,7 +121,8 @@ contract RiskPoolCore is Initializable {
     return _assetsList;
   }
 
-  function initAsset(string calldata assetSymbol) external onlyPoolManager {
+  function initAsset(string calldata assetSymbol) external {
+    if (msg.sender != addressesProvider.owner()) revert RiskPoolCore__NotOwner();
     if (assetIds[assetSymbol] != 0) revert RiskPoolCore__AssetAlreadyInitialized();
 
     _assetsList.push(assetSymbol);
