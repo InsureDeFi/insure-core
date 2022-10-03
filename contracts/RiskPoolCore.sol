@@ -94,7 +94,7 @@ contract RiskPoolCore is Initializable {
   function updateStateOnApplyCover(uint256 policyId) external onlyRiskPool {
     CoreLibrary.Policy storage policy = _policies[policyId];
     policy.utilized = true;
-    uint256 unlocksAt = calculateUnlockTimestamp(policy.endTime, 1);
+    uint256 unlocksAt = _calculateUnlockTimestamp(policy.endTime, 1);
     unchecked {
       lockedAssets -= policy.payOutAmount;
       expiredPolicyFunds[unlocksAt] -= policy.payOutAmount;
@@ -106,7 +106,7 @@ contract RiskPoolCore is Initializable {
     onlyRiskPool
     returns (uint256 unlocksAt, uint256 unlockAmount)
   {
-    unlocksAt = calculateUnlockTimestamp(timestamp, 0);
+    unlocksAt = _calculateUnlockTimestamp(timestamp, 0);
     if (unlocksAt > block.timestamp) revert RiskPoolCore__UnlockBeforeExpiry();
 
     unlockAmount = expiredPolicyFunds[unlocksAt];
@@ -124,18 +124,6 @@ contract RiskPoolCore is Initializable {
     isFreezed = freeze;
   }
 
-  function calculateUnlockTimestamp(uint256 expiry, uint256 grace) internal pure returns (uint256) {
-    uint256 unlockTimestamp;
-    {
-      (uint256 year, uint256 month, uint256 day) = BokkyPooBahsDateTimeLibrary.timestampToDate(
-        expiry
-      );
-
-      unlockTimestamp = BokkyPooBahsDateTimeLibrary.timestampFromDate(year, month, day + grace);
-    }
-    return unlockTimestamp;
-  }
-
   function getAssets() external view returns (string[] memory) {
     return _assetsList;
   }
@@ -147,5 +135,18 @@ contract RiskPoolCore is Initializable {
     uint256 assetId = _assetsList.length;
     assetIds[assetSymbol] = assetId;
     emit AssetInitialized(assetId, assetSymbol);
+  }
+
+  function _calculateUnlockTimestamp(uint256 expiry, uint256 grace)
+    internal
+    pure
+    returns (uint256 unlockTimestamp)
+  {
+    {
+      (uint256 year, uint256 month, uint256 day) = BokkyPooBahsDateTimeLibrary.timestampToDate(
+        expiry
+      );
+      unlockTimestamp = BokkyPooBahsDateTimeLibrary.timestampFromDate(year, month, day + grace);
+    }
   }
 }
