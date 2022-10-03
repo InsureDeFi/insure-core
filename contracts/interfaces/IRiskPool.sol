@@ -13,6 +13,7 @@ interface IRiskPool {
   error RiskPool__PolicyNotActive();
   error RiskPool__InActive();
   error RiskPool__Freezed();
+  error RiskPool__NotKeeper();
 
   /// @dev Emitted when new insurance is purchased
   /// @param insured The address of insured

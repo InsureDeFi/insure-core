@@ -76,18 +76,18 @@ contract RiskPoolCore is Initializable {
   ) external onlyRiskPool returns (uint256 policyId) {
     lockedAssets += payOutAmount;
     policyId = policyCount++;
-    _policies[policyId] = CoreLibrary.Policy({
-      id: policyId,
-      endTime: endTime,
-      premium: premium,
-      payOutAmount: payOutAmount,
-      assetValue: currentAssetPrice,
-      threshold: payOutThreshold,
-      insured: reciever,
-      asset: assetSymbol,
-      utilized: false
-    });
-    uint256 unlocksAt = calculateUnlockTimestamp(endTime, 1);
+
+    CoreLibrary.Policy storage policy = _policies[policyId];
+    policy.id = policyId;
+    policy.endTime = endTime;
+    policy.premium = premium;
+    policy.payOutAmount = payOutAmount;
+    policy.assetValue = currentAssetPrice;
+    policy.threshold = payOutThreshold;
+    policy.insured = reciever;
+    policy.asset = assetSymbol;
+
+    uint256 unlocksAt = _calculateUnlockTimestamp(endTime, 1);
     expiredPolicyFunds[unlocksAt] += payOutAmount;
   }
 

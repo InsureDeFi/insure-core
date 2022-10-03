@@ -2,7 +2,6 @@
 pragma solidity 0.8.9;
 
 import {ERC4626Upgradeable, IERC20MetadataUpgradeable, SafeERC20Upgradeable, IERC20Upgradeable, MathUpgradeable, Initializable} from "@openzeppelin/contracts-upgradeable/token/ERC20/extensions/ERC4626Upgradeable.sol";
-import {ReentrancyGuardUpgradeable} from "@openzeppelin/contracts-upgradeable/security/ReentrancyGuardUpgradeable.sol";
 import {CoreLibrary} from "./lib/CoreLibrary.sol";
 import {AddressesProvider} from "./configuration/AddressesProvider.sol";
 import {ParametersProvider} from "./configuration/ParametersProvider.sol";
@@ -19,7 +18,9 @@ import {IRiskPool} from "./interfaces/IRiskPool.sol";
 ///   # Withdraw
 ///   # Buy insurance
 ///   # Redeem policy
-contract RiskPool is Initializable, ERC4626Upgradeable, ReentrancyGuardUpgradeable, IRiskPool {
+contract RiskPool is Initializable, ERC4626Upgradeable, IRiskPool {
+  using SafeERC20Upgradeable for IERC20Upgradeable;
+
   AddressesProvider public addressesProvider;
   ParametersProvider public parametersProvider;
   RiskPoolCore public core;
@@ -38,7 +39,6 @@ contract RiskPool is Initializable, ERC4626Upgradeable, ReentrancyGuardUpgradeab
   {
     __ERC20_init_unchained("Insure LP Token", "rINS");
     __ERC4626_init_unchained(_usdc);
-    __ReentrancyGuard_init_unchained();
 
     addressesProvider = _addressesProvider;
     parametersProvider = ParametersProvider(addressesProvider.getParametersProvider());
@@ -57,10 +57,17 @@ contract RiskPool is Initializable, ERC4626Upgradeable, ReentrancyGuardUpgradeab
 
   /**
    * @dev functions affected by this modifier can only be invoked if the pool is not freezed.
-   * A freezed reserve only allows withdrawals and policy redeemptions.
+   * A freezed reserve only allows withdrawals.
    **/
   modifier whenNotFreezed() {
     if (core.isFreezed()) revert RiskPool__Freezed();
+    _;
+  }
+
+  modifier onlyKeeper() {
+    if (msg.sender != addressesProvider.getKeeper()) {
+      revert RiskPool__NotKeeper();
+    }
     _;
   }
 
@@ -79,7 +86,7 @@ contract RiskPool is Initializable, ERC4626Upgradeable, ReentrancyGuardUpgradeab
     uint256 payOutAmount,
     uint256 duration,
     address receiver
-  ) external nonReentrant whenActive whenNotFreezed returns (uint256) {
+  ) external whenActive whenNotFreezed returns (uint256) {
     if (receiver == address(0)) revert RiskPool__InsuredAddressZero();
     if (core.assetIds(assetSymbol) == 0) revert RiskPool__AssetNotSupported();
 
@@ -103,6 +110,10 @@ contract RiskPool is Initializable, ERC4626Upgradeable, ReentrancyGuardUpgradeab
 
     vars.currentAssetPrice = priceOracle.getPrice(assetSymbol);
 
+    IERC20Upgradeable usdc = IERC20Upgradeable(asset());
+    usdc.safeTransferFrom(_msgSender(), address(this), vars.premium - vars.protocolFee);
+    usdc.safeTransferFrom(_msgSender(), addressesProvider.getFeeCollector(), vars.protocolFee);
+
     vars.policyId = core.updateStateOnPolicy(
       assetSymbol,
       vars.endTime,
@@ -111,21 +122,6 @@ contract RiskPool is Initializable, ERC4626Upgradeable, ReentrancyGuardUpgradeab
       vars.currentAssetPrice,
       vars.threshold,
       receiver
-    );
-
-    IERC20Upgradeable usdc = IERC20Upgradeable(asset());
-
-    SafeERC20Upgradeable.safeTransferFrom(
-      usdc,
-      msg.sender,
-      address(this),
-      vars.premium - vars.protocolFee
-    );
-    SafeERC20Upgradeable.safeTransferFrom(
-      usdc,
-      msg.sender,
-      addressesProvider.getFeeDistributor(),
-      vars.protocolFee
     );
 
     emit Insured(
@@ -143,10 +139,10 @@ contract RiskPool is Initializable, ERC4626Upgradeable, ReentrancyGuardUpgradeab
     return vars.policyId;
   }
 
+  /// @inheritdoc	ERC4626Upgradeable
   function deposit(uint256 assets, address receiver)
     public
     override
-    nonReentrant
     whenActive
     whenNotFreezed
     returns (uint256)
@@ -159,10 +155,10 @@ contract RiskPool is Initializable, ERC4626Upgradeable, ReentrancyGuardUpgradeab
     return shares;
   }
 
+  /// @inheritdoc	ERC4626Upgradeable
   function mint(uint256 shares, address receiver)
     public
     override
-    nonReentrant
     whenActive
     whenNotFreezed
     returns (uint256)
@@ -175,11 +171,12 @@ contract RiskPool is Initializable, ERC4626Upgradeable, ReentrancyGuardUpgradeab
     return assets;
   }
 
+  /// @inheritdoc	ERC4626Upgradeable
   function withdraw(
     uint256 assets,
     address receiver,
     address owner
-  ) public override nonReentrant whenActive returns (uint256) {
+  ) public override whenActive returns (uint256) {
     require(assets <= maxWithdraw(owner), "ERC4626: withdraw more than max");
 
     uint256 shares = previewWithdraw(assets);
@@ -188,11 +185,12 @@ contract RiskPool is Initializable, ERC4626Upgradeable, ReentrancyGuardUpgradeab
     return shares;
   }
 
+  /// @inheritdoc	ERC4626Upgradeable
   function redeem(
     uint256 shares,
     address receiver,
     address owner
-  ) public override nonReentrant whenActive returns (uint256) {
+  ) public override whenActive returns (uint256) {
     require(shares <= maxRedeem(owner), "ERC4626: redeem more than max");
 
     uint256 assets = previewRedeem(shares);
@@ -201,7 +199,7 @@ contract RiskPool is Initializable, ERC4626Upgradeable, ReentrancyGuardUpgradeab
     return assets;
   }
 
-  function applyCover(uint256 policyId) external nonReentrant whenActive {
+  function applyCover(uint256 policyId) external onlyKeeper whenActive whenNotFreezed {
     CoreLibrary.Policy memory policy = core.getPolicy(policyId);
     if (!CoreLibrary.isActive(policy)) revert RiskPool__PolicyNotActive();
 
@@ -211,7 +209,12 @@ contract RiskPool is Initializable, ERC4626Upgradeable, ReentrancyGuardUpgradeab
     }
   }
 
-  function applyCoverBatch(uint256[] calldata policyIds) external nonReentrant whenActive {
+  function applyCoverBatch(uint256[] calldata policyIds)
+    external
+    onlyKeeper
+    whenActive
+    whenNotFreezed
+  {
     uint256[] memory latestPrices = priceOracle.getMultiPrices(core.getAssets());
 
     uint256 i = 0;
@@ -243,18 +246,15 @@ contract RiskPool is Initializable, ERC4626Upgradeable, ReentrancyGuardUpgradeab
     return (lockedAssets * 1e18) / totalAssets();
   }
 
+  /// @inheritdoc	IERC20MetadataUpgradeable
   function decimals() public view virtual override returns (uint8) {
     return 6;
   }
 
-  function _applyCover(CoreLibrary.Policy memory policy) private {
+  function _applyCover(CoreLibrary.Policy memory policy) internal {
     core.updateStateOnApplyCover(policy.id);
-    SafeERC20Upgradeable.safeTransfer(
-      IERC20Upgradeable(asset()),
-      policy.insured,
-      policy.payOutAmount
-    );
-
+    IERC20Upgradeable usdc = IERC20Upgradeable(asset());
+    usdc.safeTransfer(policy.insured, policy.payOutAmount);
     emit PolicyPaid(policy.id);
   }
 }
