@@ -18,7 +18,9 @@ contract AddressesProvider is ProxyAdmin, IAddressesProvider {
   bytes32 private constant PREMIUM_ENGINE = "PREMIUM_ENGINE";
   bytes32 private constant PARAMETERS_PROVIDER = "PARAMETERS_PROVIDER";
   bytes32 private constant PRICE_ORACLE = "PRICE_ORACLE";
-  bytes32 private constant FEE_DISTRIBUTOR = "FEE_DISTRIBUTOR";
+  bytes32 private constant FEE_COLLECTOR = "FEE_COLLECTOR";
+  bytes32 private constant POOL_MANAGER = "POOL_MANAGER";
+  bytes32 private constant KEEPER = "KEEPER";
 
   /// @inheritdoc	IAddressesProvider
   function getAddress(bytes32 key) public view returns (address) {
@@ -93,14 +95,38 @@ contract AddressesProvider is ProxyAdmin, IAddressesProvider {
   }
 
   /// @inheritdoc IAddressesProvider
-  function getFeeDistributor() external view returns (address) {
-    return getAddress(FEE_DISTRIBUTOR);
+  function getFeeCollector() external view returns (address) {
+    return getAddress(FEE_COLLECTOR);
   }
 
   /// @inheritdoc IAddressesProvider
-  function setFeeDistributor(address newFeeDistributor) external onlyOwner {
-    address oldFeeDistributor = _addresses[FEE_DISTRIBUTOR];
-    _addresses[FEE_DISTRIBUTOR] = newFeeDistributor;
-    emit FeeDistributorUpdated(oldFeeDistributor, newFeeDistributor);
+  function setFeeCollector(address newFeeCollector) external onlyOwner {
+    address oldFeeCollector = _addresses[FEE_COLLECTOR];
+    _addresses[FEE_COLLECTOR] = newFeeCollector;
+    emit FeeCollectorUpdated(oldFeeCollector, newFeeCollector);
+  }
+
+  /// @inheritdoc IAddressesProvider
+  function getPoolManager() external view returns (address) {
+    return getAddress(POOL_MANAGER);
+  }
+
+  /// @inheritdoc IAddressesProvider
+  function setPoolManager(address newPoolManager) external onlyOwner {
+    address oldPoolManager = _addresses[POOL_MANAGER];
+    _addresses[POOL_MANAGER] = newPoolManager;
+    emit PoolManagerUpdated(oldPoolManager, newPoolManager);
+  }
+
+  /// @inheritdoc IAddressesProvider
+  function getKeeper() external view returns (address) {
+    return getAddress(KEEPER);
+  }
+
+  /// @inheritdoc IAddressesProvider
+  function setKeeper(address newKeeper) external onlyOwner {
+    address oldKeeper = _addresses[KEEPER];
+    _addresses[KEEPER] = newKeeper;
+    emit KeeperUpdated(oldKeeper, newKeeper);
   }
 }

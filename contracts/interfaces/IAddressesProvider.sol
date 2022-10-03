@@ -30,10 +30,20 @@ interface IAddressesProvider {
   /// @param newAddress The new address of the PriceOracle
   event PriceOracleUpdated(address indexed oldAddress, address indexed newAddress);
 
-  /// @dev Emitted when fee distributor is updated.
-  /// @param oldAddress The old address of the FeeDistributor
-  /// @param newAddress The new address of the FeeDistributor
-  event FeeDistributorUpdated(address indexed oldAddress, address indexed newAddress);
+  /// @dev Emitted when fee collector is updated.
+  /// @param oldAddress The old address of the FeeCollector
+  /// @param newAddress The new address of the FeeCollector
+  event FeeCollectorUpdated(address indexed oldAddress, address indexed newAddress);
+
+  /// @dev Emitted when fee collector is updated.
+  /// @param oldAddress The old address of the PoolManager
+  /// @param newAddress The new address of the PoolManager
+  event PoolManagerUpdated(address indexed oldAddress, address indexed newAddress);
+
+  /// @dev Emitted when fee collector is updated.
+  /// @param oldAddress The old address of the Keeper
+  /// @param newAddress The new address of the Keeper
+  event KeeperUpdated(address indexed oldAddress, address indexed newAddress);
 
   /// @dev Emitted when a new contract address is registered.
   /// @param key The identifier of the contract
@@ -94,11 +104,27 @@ interface IAddressesProvider {
   /// @param newPriceOracle The address of the new PriceOracle
   function setPriceOracle(address newPriceOracle) external;
 
-  /// @notice Returns the address of fee distributor.
-  /// @return The FeeDistributor address
-  function getFeeDistributor() external view returns (address);
+  /// @notice Returns the address of fee collector.
+  /// @return The FeeCollector address
+  function getFeeCollector() external view returns (address);
 
-  /// @notice Updates the address of fee distributor.
-  /// @param newFeeDistributor The address of the new FeeDistributor
-  function setFeeDistributor(address newFeeDistributor) external;
+  /// @notice Updates the address of fee collector.
+  /// @param newFeeCollector The address of the new FeeCollector
+  function setFeeCollector(address newFeeCollector) external;
+
+  /// @notice Returns the address of pool manager.
+  /// @return The PoolManager address
+  function getPoolManager() external view returns (address);
+
+  /// @notice Updates the address of pool manager.
+  /// @param newPoolManager The address of the new PoolManager
+  function setPoolManager(address newPoolManager) external;
+
+  /// @notice Returns the address of keeper.
+  /// @return The Keeper address
+  function getKeeper() external view returns (address);
+
+  /// @notice Updates the address of keeper.
+  /// @param newKeeper The address of the new Keeper
+  function setKeeper(address newKeeper) external;
 }
