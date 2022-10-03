@@ -10,6 +10,7 @@ error RiskPoolCore__NotOwner();
 error RiskPoolCore__NotRiskPool();
 error RiskPoolCore__AssetAlreadyInitialized();
 error RiskPoolCore__UnlockBeforeExpiry();
+error RiskPoolCore__NotPoolManager();
 
 contract RiskPoolCore is Initializable {
   /// @dev Emitted when a new asset is initialised
@@ -49,6 +50,13 @@ contract RiskPoolCore is Initializable {
   modifier onlyRiskPool() {
     if (msg.sender != addressesProvider.getRiskPool()) {
       revert RiskPoolCore__NotRiskPool();
+    }
+    _;
+  }
+
+  modifier onlyPoolManager() {
+    if (msg.sender != addressesProvider.getPoolManager()) {
+      revert RiskPoolCore__NotPoolManager();
     }
     _;
   }
@@ -112,7 +120,7 @@ contract RiskPoolCore is Initializable {
     isActive = active;
   }
 
-  function setPoolFreeze(bool freeze) external onlyOwner {
+  function setPoolFreeze(bool freeze) external onlyPoolManager {
     isFreezed = freeze;
   }
 
