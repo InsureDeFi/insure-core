@@ -1,15 +1,12 @@
-import { ethers, BigNumber, utils } from "ethers";
+import { BigNumber, utils } from "ethers";
 import { task } from "hardhat/config";
-import type { TaskArguments } from "hardhat/types";
-
-const jsonRpcProvider = process.env.GODWOKEN_MAINNET_RPC_URL; // https://docs.ethers.io/v5/api/providers/#providers-getDefaultProvider
-const provider = ethers.getDefaultProvider(jsonRpcProvider);
+import type { HardhatRuntimeEnvironment, TaskArguments } from "hardhat/types";
 
 task("balance", "Prints an account's balance")
   .addParam("account", "The account's address")
-  .setAction(async (taskArgs: TaskArguments): Promise<void> => {
+  .setAction(async (taskArgs: TaskArguments, hre: HardhatRuntimeEnvironment): Promise<void> => {
     const account: string = utils.getAddress(taskArgs.account);
-    const balance: BigNumber = await provider.getBalance(account);
+    const balance: BigNumber = await hre.ethers.provider.getBalance(account);
 
     console.log(`${utils.formatEther(balance)} CKB`);
   });
