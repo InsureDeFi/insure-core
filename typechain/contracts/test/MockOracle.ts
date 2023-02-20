@@ -54,8 +54,14 @@ export interface MockOracleInterface extends utils.Interface {
     values: [PromiseOrValue<string>[], PromiseOrValue<string>[]]
   ): string;
 
-  decodeFunctionResult(functionFragment: "getReferenceData", data: BytesLike): Result;
-  decodeFunctionResult(functionFragment: "getReferenceDataBulk", data: BytesLike): Result;
+  decodeFunctionResult(
+    functionFragment: "getReferenceData",
+    data: BytesLike
+  ): Result;
+  decodeFunctionResult(
+    functionFragment: "getReferenceDataBulk",
+    data: BytesLike
+  ): Result;
 
   events: {};
 }
@@ -77,7 +83,9 @@ export interface MockOracle extends BaseContract {
     eventFilter?: TypedEventFilter<TEvent>
   ): Array<TypedListener<TEvent>>;
   listeners(eventName?: string): Array<Listener>;
-  removeAllListeners<TEvent extends TypedEvent>(eventFilter: TypedEventFilter<TEvent>): this;
+  removeAllListeners<TEvent extends TypedEvent>(
+    eventFilter: TypedEventFilter<TEvent>
+  ): this;
   removeAllListeners(eventName?: string): this;
   off: OnEvent<this>;
   on: OnEvent<this>;

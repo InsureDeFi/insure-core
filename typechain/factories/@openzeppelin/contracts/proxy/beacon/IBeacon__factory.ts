@@ -30,7 +30,10 @@ export class IBeacon__factory {
   static createInterface(): IBeaconInterface {
     return new utils.Interface(_abi) as IBeaconInterface;
   }
-  static connect(address: string, signerOrProvider: Signer | Provider): IBeacon {
+  static connect(
+    address: string,
+    signerOrProvider: Signer | Provider
+  ): IBeacon {
     return new Contract(address, _abi, signerOrProvider) as IBeacon;
   }
 }

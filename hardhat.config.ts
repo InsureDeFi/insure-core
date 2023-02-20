@@ -9,6 +9,7 @@ import "hardhat-deploy";
 import "solidity-coverage";
 import "hardhat-gas-reporter";
 import "hardhat-contract-sizer";
+import "@primitivefi/hardhat-dodoc";
 import "./tasks";
 
 dotenv.config();
@@ -18,19 +19,9 @@ const PRIVATE_KEY = process.env.PRIVATE_KEY;
 const config: HardhatUserConfig = {
   defaultNetwork: "hardhat",
   networks: {
-    hardhat: {
-      // If you want to do some forking set `enabled` to true
-      // forking: {
-      //   url: MAINNET_RPC_URL,
-      //   blockNumber: Number(FORKING_BLOCK_NUMBER),
-      //   enabled: false,
-      // },
-      chainId: 31337,
-    },
-    localhost: {
-      chainId: 31337,
-    },
-    godwokenV1: {
+    hardhat: { chainId: 31337 },
+    localhost: { chainId: 31337 },
+    "godwoken-testnet": {
       url: "https://godwoken-testnet-v1.ckbapp.dev",
       accounts: PRIVATE_KEY ? [PRIVATE_KEY] : [],
       saveDeployments: true,
@@ -41,21 +32,24 @@ const config: HardhatUserConfig = {
     enabled: !!process.env.REPORT_GAS,
     currency: "USD",
     outputFile: "gas-report.txt",
-    noColors: true,
   },
   contractSizer: {
     runOnCompile: false,
   },
+  dodoc: {
+    runOnCompile: true,
+    include: ["contracts/"],
+    exclude: ["contracts/test"],
+    keepFileStructure: true,
+    freshOutput: true,
+  },
   namedAccounts: {
-    deployer: {
-      default: 0,
-    },
-    feeCollector: {
-      default: 1,
-    },
+    deployer: 0,
+    feeCollector: 1,
+    user: 2,
   },
   solidity: {
-    version: "0.8.9",
+    version: "0.8.17",
     settings: {
       optimizer: {
         enabled: true,

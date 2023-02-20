@@ -30,7 +30,10 @@ export class Initializable__factory {
   static createInterface(): InitializableInterface {
     return new utils.Interface(_abi) as InitializableInterface;
   }
-  static connect(address: string, signerOrProvider: Signer | Provider): Initializable {
+  static connect(
+    address: string,
+    signerOrProvider: Signer | Provider
+  ): Initializable {
     return new Contract(address, _abi, signerOrProvider) as Initializable;
   }
 }

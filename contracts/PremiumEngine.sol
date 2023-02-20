@@ -1,100 +1,128 @@
 // SPDX-License-Identifier: AGPL-3.0-only
-pragma solidity 0.8.9;
+pragma solidity 0.8.17;
 
-import {ABDKMath64x64} from "./lib/ABDKMath64x64.sol";
+import "@openzeppelin/contracts-upgradeable/proxy/utils/UUPSUpgradeable.sol";
 
-error PremiumEngine__InsufficientCapacity();
+import "./access/AccessRestricted.sol";
+
+import "./interfaces/IPremiumEngine.sol";
+
+error InsufficientCapacity();
 
 /// @title PremiumEngine
 /// @author Insure
 /// @notice Premium calculator contract of Insure protocol
-contract PremiumEngine {
-  using ABDKMath64x64 for uint256;
-  using ABDKMath64x64 for int128;
+contract PremiumEngine is UUPSUpgradeable, AccessRestricted, IPremiumEngine {
+  uint256 public constant BASE_RATE = 0.04 * 1e6;
+  uint256 public constant RATE_SLOPE_1 = 0.03 * 1e6;
+  uint256 public constant RATE_SLOPE_2 = 0.7 * 1e6;
+  uint256 public constant OPTIMAL_UTILIZATION_RATE = 0.85 * 1e6;
+  uint256 public constant EXCESS_UTILIZATION_RATE = 0.15 * 1e6;
 
   uint256 internal constant BASE_UNIT = 1e6;
 
-  /// @notice Multiplier curve of premium engine
-  uint256 public constant K = 30000000000;
-  uint256 public constant A = (K * BASE_UNIT) / 1200000;
-
-  uint256 public constant PREMIUM_ENGINE_REVISION = 0x1;
-
-  /// @notice Calculates yearly premium rate
-  /// @param coverAmount The cover amount of the policy
-  /// @param totalLiquidity The liquidity inside risk pool
-  /// @param lockedAmount The amount locked for all the active policies
-  function getPremiumRate(
-    uint256 coverAmount,
-    uint256 totalLiquidity,
-    uint256 lockedAmount
-  ) public pure returns (uint256) {
-    if (coverAmount + lockedAmount > totalLiquidity) revert PremiumEngine__InsufficientCapacity();
-
-    if (coverAmount == 0) return 0;
-    if (totalLiquidity == 0) return 0;
-
-    // Gas optimization
-    uint256 _k = K;
-    uint256 _baseUnit = BASE_UNIT;
-
-    // Unutilized collateral (1 - utilization ratio)
-    // 1000000 = 100.000%
-    uint256 c1;
-    uint256 c2;
-    // Gas optimization. No need to check for overflow as previous
-    // condition check will revert on overflow
-    unchecked {
-      c1 = _baseUnit - ((lockedAmount * _baseUnit) / totalLiquidity);
-      c2 = _baseUnit - (((lockedAmount + coverAmount) * _baseUnit) / totalLiquidity);
-    }
-
-    int128 tempA = A.fromUInt().div(_baseUnit.fromUInt());
-    int128 tempCollateral = c1.fromUInt();
-
-    // Calculate area under curve
-    uint256 a1 = (((tempCollateral).add(tempA).ln()).mulu(_k) * _baseUnit) + c1;
-
-    tempCollateral = c2.fromUInt();
-
-    uint256 a2 = (((tempCollateral).add(tempA).ln()).mulu(_k) * _baseUnit) + c2;
-
-    // (0 => c1)area - (0 => c2)area = yearly premium rate between c1 and c2
-    uint256 premiumRate = a1 - a2;
-    // Gas optimization. Denominator is never zero
-    unchecked {
-      premiumRate = premiumRate / ((c1 - c2) * _baseUnit);
-    }
-
-    return premiumRate;
+  /// @dev Constructor.
+  constructor() {
+    _disableInitializers();
   }
 
-  /// @notice Calculates premium to be paid to buy insurance
-  /// @param coverAmount The cover amount of the policy
+  function initialize(AccessController accessController_) external initializer {
+    __AccessRestricted_init(accessController_);
+  }
+
+  /// @notice Calculate the yearly premium rate
+  /// @param amount The payout amount
+  /// @param totalLiquidity The total liquidity in the pool
+  /// @param lockedAmount The amount locked in the pool
+  /// @return premiumRate current yearly premium rate
+  function getPremiumRate(
+    uint256 amount,
+    uint256 totalLiquidity,
+    uint256 lockedAmount
+  ) public pure returns (uint256 premiumRate) {
+    if (amount + lockedAmount > totalLiquidity) revert InsufficientCapacity();
+
+    if (amount == 0) return 0;
+    if (totalLiquidity == 0) return 0;
+
+    uint256 utilizationRateBefore;
+    uint256 utilizationRateAfter;
+
+    unchecked {
+      utilizationRateBefore = (lockedAmount * BASE_UNIT) / totalLiquidity;
+      utilizationRateAfter = ((lockedAmount + amount) * BASE_UNIT) / totalLiquidity;
+    }
+
+    if (utilizationRateAfter <= OPTIMAL_UTILIZATION_RATE) {
+      premiumRate += _avgPremiumRate(utilizationRateBefore, utilizationRateAfter);
+    } else if (OPTIMAL_UTILIZATION_RATE <= utilizationRateBefore) {
+      premiumRate += _avgPremiumRate(utilizationRateBefore, utilizationRateAfter);
+    } else {
+      premiumRate += _avgPremiumRate(utilizationRateBefore, OPTIMAL_UTILIZATION_RATE);
+      premiumRate += _avgPremiumRate(OPTIMAL_UTILIZATION_RATE, utilizationRateAfter);
+    }
+  }
+
+  /// @notice Calculate premium for the given amount and duration
+  /// @param amount The payout amount
   /// @param duration The duration of the policy
-  /// @param totalLiquidity The liquidity inside risk pool
-  /// @param lockedAmount The amount locked for all the active policies
-  /// @return Premium to be paid
+  /// @param totalLiquidity The total liquidity in the pool
+  /// @param lockedAmount The amount locked in the pool
+  /// @return premium The premium for the given amount and duration
   function getPremium(
-    uint256 coverAmount,
+    uint256 amount,
     uint256 duration,
     uint256 totalLiquidity,
     uint256 lockedAmount
-  ) external pure returns (uint256) {
-    if (coverAmount + lockedAmount > totalLiquidity) revert PremiumEngine__InsufficientCapacity();
+  ) public pure returns (uint256 premium) {
+    if (amount + lockedAmount > totalLiquidity) revert InsufficientCapacity();
 
-    if (coverAmount == 0) return 0;
+    if (amount == 0) return 0;
     if (totalLiquidity == 0) return 0;
     if (duration == 0) return 0;
 
-    uint256 premiumRate = getPremiumRate(coverAmount, totalLiquidity, lockedAmount);
+    uint256 premiumRate = getPremiumRate(amount, totalLiquidity, lockedAmount);
 
-    uint256 premium;
-    // Gas optimization. Denominator is never zero
     unchecked {
-      premium = (coverAmount * premiumRate * duration) / (365 days * BASE_UNIT);
+      premium = (amount * premiumRate * duration) / (365 days * BASE_UNIT);
+    }
+  }
+
+  function _avgPremiumRate(uint256 utilizationRateBefore, uint256 utilizationRateAfter)
+    internal
+    pure
+    returns (uint256 premiumRate)
+  {
+    uint256 premiumRateBefore = _premiumRate(utilizationRateBefore);
+    uint256 premiumRateAfter = _premiumRate(utilizationRateAfter);
+    unchecked {
+      premiumRate = (premiumRateBefore + premiumRateAfter) / 2;
+    }
+  }
+
+  function _premiumRate(uint256 utilizationRate) internal pure returns (uint256) {
+    uint256 currentPremiumRate = BASE_RATE;
+    if (utilizationRate == 0) return currentPremiumRate;
+
+    unchecked {
+      if (utilizationRate > OPTIMAL_UTILIZATION_RATE) {
+        uint256 excessUtilizationRatio = utilizationRate - OPTIMAL_UTILIZATION_RATE;
+        currentPremiumRate += (RATE_SLOPE_1 +
+          ((RATE_SLOPE_2 * excessUtilizationRatio) / EXCESS_UTILIZATION_RATE));
+      } else {
+        currentPremiumRate += (RATE_SLOPE_1 * utilizationRate) / OPTIMAL_UTILIZATION_RATE;
+      }
     }
 
-    return premium;
+    return currentPremiumRate;
   }
+
+  /**
+   * @inheritdoc UUPSUpgradeable
+   */
+  function _authorizeUpgrade(address newImplementation)
+    internal
+    override
+    onlyRole(ADMIN_ROLE) // solhint-disable-next-line no-empty-blocks
+  {}
 }

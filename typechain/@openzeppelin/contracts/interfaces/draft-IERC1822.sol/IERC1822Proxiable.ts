@@ -27,9 +27,15 @@ export interface IERC1822ProxiableInterface extends utils.Interface {
 
   getFunction(nameOrSignatureOrTopic: "proxiableUUID"): FunctionFragment;
 
-  encodeFunctionData(functionFragment: "proxiableUUID", values?: undefined): string;
+  encodeFunctionData(
+    functionFragment: "proxiableUUID",
+    values?: undefined
+  ): string;
 
-  decodeFunctionResult(functionFragment: "proxiableUUID", data: BytesLike): Result;
+  decodeFunctionResult(
+    functionFragment: "proxiableUUID",
+    data: BytesLike
+  ): Result;
 
   events: {};
 }
@@ -51,7 +57,9 @@ export interface IERC1822Proxiable extends BaseContract {
     eventFilter?: TypedEventFilter<TEvent>
   ): Array<TypedListener<TEvent>>;
   listeners(eventName?: string): Array<Listener>;
-  removeAllListeners<TEvent extends TypedEvent>(eventFilter: TypedEventFilter<TEvent>): this;
+  removeAllListeners<TEvent extends TypedEvent>(
+    eventFilter: TypedEventFilter<TEvent>
+  ): this;
   removeAllListeners(eventName?: string): this;
   off: OnEvent<this>;
   on: OnEvent<this>;
